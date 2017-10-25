@@ -7,12 +7,12 @@ package ru.job4j.max;
 public class Max {
 	/**
      * max.
-     * @param first переменная может быть больше или меньше second.
-     * @param second переменная может быть больше или меньше first.
+     * @param first переменная может быть больше или меньше second, third.
+     * @param second переменная может быть больше или меньше first, third.
+	 * @param third переменная может быть больше или меньше first, second. 
 	 * @return result.
      */
-	public int max(int first, int second) {
-		int result = (first > second) ? first : second;
-		return result;
+	public int max(int first, int second, int third) {
+		return Math.max(first, Math.max(second, third));
 	}
 }
