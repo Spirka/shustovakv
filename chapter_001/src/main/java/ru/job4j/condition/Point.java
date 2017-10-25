@@ -8,11 +8,11 @@ public class Point {
 	/**
 	 * Полe x.
 	 */
-	private int x;
+	private double x;
 	/**
 	 * Полe y.
 	 */
-	private int y;
+	private double y;
 	/**
 	 * point.
 	 * @param x определяет положение точки по оси Х
@@ -20,7 +20,7 @@ public class Point {
 	 * @param y определяет положение точки по оси У
 	 * и записывает результат в поле this.y.
 	 */
-	 public Point(int x, int y) {
+	 public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
 	 }
@@ -28,14 +28,14 @@ public class Point {
 	  * Method getX.
 	  * @return this.x.
 	  */
-	  public int getX() {
+	  public double getX() {
 		return this.x;
 	  }
 	  /**
 	   * Method getY.
 	   * @return this.y.
 	   */
-	  public int getY() {
+	  public double getY() {
 		return this.y;
 	  }
 	  /**
@@ -44,7 +44,7 @@ public class Point {
 	   * @param b это.
 	   * @return result.
 	   */
-	   public boolean is(int a, int b) {
+	   public boolean is(double a, double b) {
 		   return this.y == this.x * a + b;
 		}
 }
