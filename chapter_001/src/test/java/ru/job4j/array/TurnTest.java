@@ -16,7 +16,7 @@ public class TurnTest {
      * Test когда количество чисел в массиве четное.
      */
     @Test
-    public void whenTurnArrayWithEvenAmountOfElementsThenTurnedArray (){
+    public void whenTurnArrayWithEvenAmountOfElementsThenTurnedArray() {
         Turn turn = new Turn();
         int[] array = {2, 6, 1, 4};
         int[] resultTest = {4, 1, 6, 2};
