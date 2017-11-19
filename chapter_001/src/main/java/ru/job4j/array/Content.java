@@ -26,9 +26,8 @@ public class Content {
                     if (charsSub[j] != charsOrigin[j + i]) {
                     contains = false;
                     break;
+                    }
                 }
-                return contains;
-            }
             }
         } return contains;
     }
