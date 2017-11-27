@@ -19,7 +19,7 @@ public class Teacher extends Profession {
     /**
      * Method conductsCourses.
      */
-    public void conductsCourses(Student student){
+    public void conductsCourses(Student student) {
 
     }
     /**
