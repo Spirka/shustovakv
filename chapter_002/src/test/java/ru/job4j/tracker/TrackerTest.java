@@ -56,7 +56,7 @@ public class TrackerTest {
         tracker.add(previous);
         // Удаляем заявку в трекере.
         tracker.delete(previous);
-        Item[] result = {null};
+        Item[] result = {};
         // Проверяем, что заявка next удалена.
         assertThat(tracker.findAll(), is(result));
     }
@@ -86,5 +86,15 @@ public class TrackerTest {
         tracker.add(first);
         Item[] result = {first};
         assertThat(tracker.findByName("test1"), is(result));
+    }
+    /**
+     * Тест findById.
+     */
+    @Test
+    public void whenFindItemByIdThenReturnItem() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("test1", "testDescription1", 123L);
+        tracker.add(first);
+        assertThat(tracker.findById(first.getId()).getName(), is("test1"));
     }
 }

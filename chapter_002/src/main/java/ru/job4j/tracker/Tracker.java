@@ -50,59 +50,39 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void update(Item item) {
-        // Получаем id и присваиваем его переменной id.
-        String id = item.getId();
-        // Передвигаемся по массиву
-        for (int index = 0; index != this.position; index++) {
-            // присваиваем индекс массива переменной i.
-            Item i = items[index];
+        for (int index = 0; index < this.position; index++) {
             // Проверяем, если в массиве есть элементы и мы находим id совпадающий с нашим.
-            if (i != null && item.getId().equals(id)) {
-                // присваиваем найденному элемену null.
-                this.items[index] = null;
+            // присваиваем найденному элемену item.
+            if (item != null && this.items[index].getId().equals(item.getId())) {
+                this.items[index] = item;
+                break;
             }
         }
-        // записываем новую заявку вместо удаленной.
-        this.items[this.position] = item;
     }
     /**
      * Метод public void delete(Item) должен удалить ячейку в массиве this.items.
      * Для этого необходимо найти ячейку в массиве по id.
      * После этого присвоить ей null, либо сместить все значения справа от удаляемого элемента - на
      * одну ячейку влево с помощью System.arrayCopy().
-     * @param item новая заявка.
+     * @param item заявка.
      */
     public void delete(Item item) {
-        // Получаем id и присваиваем его переменной id.
-        String id = item.getId();
-        // Передвигаемся по массиву
-        for (int index = 0; index != this.position; index++) {
-            // присваиваем индекс массива переменной i.
-            Item i = items[index];
-            // Проверяем, если в массиве есть элементы и мы находим id совпадающий с нашим.
-            if (i != null && item.getId().equals(id)) {
-                // присваиваем найденному элемену null.
-                this.items[index] = null;
+        for (int index = 0; index < this.position; index++) {
+            if (this.items[index].getId().equals(item.getId())) {
+                System.arraycopy(this.items, index + 1, this.items, index, this.position - index);
+                position--;
+                break;
             }
         }
     }
     /**
-     * Метод public Item[] findAll().
+     * Метод public Item[] findAll() реализует получение списка заявок.
      * @return копию массива this.items без null элементов.
      */
     public Item[] findAll() {
-        // Создаем результирющий массив для сохранения новых элементов из основного массива.
         Item[] result = new Item[this.position];
-        // Проверяем, пустой ли массив.
-        if (this.position == 0) {
-            result[0] = null;
-        } else {
-            for (int index = 0; index != this.position; index++) {
-                // заполняем массив текущими значениями.
-                result[index] = this.items[index];
-            }
-        }
-            return result;
+        System.arraycopy(this.items, 0, result, 0, this.position);
+        return result;
     }
     /**
      * Метод получение списка по имени. проверяет в цикле все элементы массива this.items,
