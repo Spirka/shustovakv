@@ -1,4 +1,10 @@
-package ru.job4j.tracker;
+package ru.job4j.start;
+
+import ru.job4j.tracker.ConsoleInput;
+import ru.job4j.tracker.Input;
+import ru.job4j.tracker.Item;
+import ru.job4j.tracker.Tracker;
+
 /**
  * Class StartUI.
  * @author  shustovakv
@@ -112,12 +118,14 @@ public class StartUI {
      */
     public void deleteItem() {
         System.out.println("----------Удаление заявки----------");
-        String name = this.input.ask("Введите имя заявки : ");
-        String desk = this.input.ask("Введите имя заявки : ");
-        Long create = Long.valueOf(this.input.ask("Введите дату создания заявки в милисекундах : "));
-        Item item = new Item(name, desk, create);
-        this.tracker.delete(item);
-        System.out.println("---------- Заявка с getId : " + item.getId() + " удалена---------");
+        String id = this.input.ask("Введите ID заявки : ");
+        Item byId = this.tracker.findById(id);
+        if (byId == null) {
+            System.out.println("Вы ввели некорректный ID");
+        } else {
+            this.tracker.delete(byId);
+            System.out.println("---------- Заявка с Id : " + byId.getId() + " удалена---------");
+        }
     }
     /**
      * Метод реализующий получение списка всех заявок.
