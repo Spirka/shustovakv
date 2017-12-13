@@ -8,18 +8,18 @@ import ru.job4j.tracker.Tracker;
  * @author  shustovakv
  * @since 11.12.2017
  */
-public class MenuTracker {
+class MenuTracker {
 
     private Input input;
     private Tracker tracker;
     private UserAction[] actions = new UserAction[6];
 
-    public MenuTracker(Input input, Tracker tracker) {
+    MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
-    public void fillActions() {
+    void fillActions() {
         this.actions[0] = this.new AddItem();
         this.actions[1] = new MenuTracker.ShowItems();
         this.actions[2] = new EditItem();
@@ -28,11 +28,11 @@ public class MenuTracker {
         this.actions[5] = new FindItemById();
     }
 
-    public void select(int key) {
+    void select(int key) {
         this.actions[key].execute(this.input, this.tracker);
     }
 
-    public void show() {
+    void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
                 System.out.println(action.info());
