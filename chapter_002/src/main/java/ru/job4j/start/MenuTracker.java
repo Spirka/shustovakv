@@ -13,7 +13,6 @@ class MenuTracker {
     private Input input;
     private Tracker tracker;
     private BaseAction[] actions = new BaseAction[6];
-    private int position = 0;
 
     MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -21,12 +20,12 @@ class MenuTracker {
     }
 
     void fillActions() {
-        this.actions[position++] = this.new AddItem(0);
-        this.actions[position++] = new MenuTracker.ShowItems(1);
-        this.actions[position++] = new EditItem(2);
-        this.actions[position++] = this.new DeleteItem(3);
-        this.actions[position++] = this.new FindItemsByName(4);
-        this.actions[position++] = this.new FindItemById(5);
+        this.actions[0] = this.new AddItem("AddItem", 0);
+        this.actions[1] = new MenuTracker.ShowItems("ShowItems", 1);
+        this.actions[2] = new EditItem("EditItem", 2);
+        this.actions[3] = this.new DeleteItem("DeleteItem", 3);
+        this.actions[4] = this.new FindItemsByName("FindItemsByName", 4);
+        this.actions[5] = this.new FindItemById("FindItemById", 5);
     }
 
 
@@ -44,8 +43,8 @@ class MenuTracker {
 
     private class AddItem extends BaseAction {
 
-        private AddItem(int key) {
-            super("AddItem", key);
+        private AddItem(String name, int key) {
+            super(name, key);
         }
 
         @Override
@@ -62,8 +61,8 @@ class MenuTracker {
 
     private static class ShowItems extends BaseAction {
 
-        private ShowItems(int key) {
-            super("ShowItems", key);
+        private ShowItems(String name, int key) {
+            super(name, key);
         }
 
         @Override
@@ -83,8 +82,8 @@ class MenuTracker {
 
     class EditItem extends BaseAction {
 
-        private EditItem(int key) {
-            super("EditItem", key);
+        private EditItem(String name, int key) {
+            super(name, key);
         }
 
         @Override
@@ -107,8 +106,8 @@ class MenuTracker {
     }
     private class DeleteItem extends BaseAction {
 
-        private DeleteItem(int key) {
-            super("DeleteItem", key);
+        private DeleteItem(String name, int key) {
+            super(name, key);
         }
 
         @Override
@@ -131,8 +130,8 @@ class MenuTracker {
     }
     private class FindItemsByName extends BaseAction {
 
-        private FindItemsByName(int key) {
-            super("FindItemsByName", key);
+        private FindItemsByName(String name, int key) {
+            super(name, key);
         }
         @Override
         public int key() {
@@ -152,8 +151,8 @@ class MenuTracker {
     }
     private class FindItemById extends BaseAction {
 
-        private FindItemById(int key) {
-            super("FindItemById", key);
+        private FindItemById(String name, int key) {
+            super(name, key);
         }
 
         @Override

@@ -9,7 +9,10 @@ import ru.job4j.tracker.Tracker;
  * @since 11.12.2017
  */
 public interface UserAction {
+
     int key();
+
     void execute(Input input, Tracker tracker);
+
     String info();
 }

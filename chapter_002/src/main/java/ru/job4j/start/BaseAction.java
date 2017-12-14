@@ -7,20 +7,20 @@ import ru.job4j.tracker.Tracker;
  * @author  shustovakv
  * @since 14.12.2017
  */
-public abstract class BaseAction {
+public abstract class BaseAction implements UserAction {
 
-    public String name;
-    public int key;
+    private final String name;
+    private final int key;
 
-    BaseAction(String name, int key) {
+    protected BaseAction(final String name, final int key) {
         this.name = name;
         this.key = key;
     }
+    @Override
     public int key() {
         return this.key;
     }
-    abstract void execute(Input input, Tracker tracker);
-
+    @Override
     public String info() {
         return String.format("%s. %s", this.key, this.name);
     }
