@@ -19,10 +19,9 @@ public class TriangleTest {
         assertThat(
                 triangle.draw(),
                 is(new StringBuilder()
-                .append("   +   \n")
-                .append("  + +  \n")
-                .append(" +   + \n")
-                .append("+++++++")
+                .append("  ^  ")
+                .append(" ^^^ ")
+                .append("^^^^^")
                 .toString()
                 )
         );

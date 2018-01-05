@@ -13,14 +13,14 @@ package ru.job4j.loop;
 	  public String piramid(int h) {
 		  StringBuilder builder = new StringBuilder();
 		  for (int i = 0; i < h; i++) {
-			  for (int j = 0; j <= h * 2 - 2; j++) {
+			  for (int j = 0; j < h * 2 - 1; j++) {
 				  if (j > h - 2 - i && j < h + i) {
 				  builder.append("^");
 				  } else {
 					  builder.append(" ");
 				  }
 			  }
-			  builder.append("\r\n");
+			  builder.append(System.lineSeparator());
 		  }
 		  return builder.toString();
 	  }

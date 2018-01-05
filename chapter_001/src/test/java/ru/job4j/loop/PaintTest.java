@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 		 Paint paint = new Paint();
 		 String result = paint.piramid(2);
 		 final String line = System.getProperty("line.separator");
-		 String expected = String.format(" ^ %s^^^%s", line, line);
+		 String expected = String.format(" ^ %1$s^^^%1$s", line);
 		 assertThat(result, is(expected));
 	 }
 	 /**
@@ -31,7 +31,7 @@ import static org.junit.Assert.assertThat;
 		 Paint paint = new Paint();
 		 String result = paint.piramid(3);
 		 final String line = System.getProperty("line.separator");
-		 String expected = String.format("  ^  %s ^^^ %s^^^^^%s", line, line, line);
+		 String expected = String.format("  ^  %1$s ^^^ %1$s^^^^^%1$s", line);
 		 assertThat(result, is(expected));
 	  }
  }

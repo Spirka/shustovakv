@@ -1,4 +1,6 @@
 package ru.job4j.pseudo;
+
+
 /**
  * Class Triangle.
  * @author  shustovakv
@@ -7,11 +9,20 @@ package ru.job4j.pseudo;
 public class Triangle implements Shape {
     @Override
     public String draw() {
+        int h = 3;
         StringBuilder pic = new StringBuilder();
-        pic.append("   +   \n");
-        pic.append("  + +  \n");
-        pic.append(" +   + \n");
-        pic.append("+++++++");
+        for (int i = 0 ; i < h; i++) {
+            for (int j = 0; j < h * 2 - 1; j++) {
+                if (j > h - 2 - i && j < h + i) {
+                    pic.append("^");
+                } else {
+                    pic.append(" ");
+                }
+            }
+            if (i < h - 1) {
+                pic.append(System.lineSeparator());
+            }
+        }
         return pic.toString();
     }
     public static void main(String[] args) {
