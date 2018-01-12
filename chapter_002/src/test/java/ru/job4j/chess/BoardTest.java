@@ -1,6 +1,8 @@
 package ru.job4j.chess;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Class Test Chess board.
@@ -56,5 +58,55 @@ public class BoardTest {
         Board board = new Board();
         board.getFigures()[0][2] = new Bishop(new Cell(0, 2));
         board.move(new Cell(0, 2), new Cell(6, 8));
+    }
+    /**
+     * Test the move of the bishop.
+     */
+    @Test
+    public void whenTheBishopMoveOnBoard() {
+        Bishop bishop = new Bishop(new Cell(0, 2));
+        Cell[] result = bishop.way(new Cell(0, 2), new Cell(4, 6));
+        Cell[] expected = {new Cell(1, 3), new Cell(2, 4), new Cell(3, 5), new Cell(4, 6)};
+        assertThat(result, is(expected));
+    }
+    /**
+     * Test the move of the boat.
+     */
+    @Test
+    public void whenTheBoatMoveOnBoard() {
+        Boat boat = new Boat(new Cell(0, 7));
+        Cell[] result = boat.way(new Cell(0, 7), new Cell(4, 7));
+        Cell[] expected = {new Cell(1, 7), new Cell(2, 7), new Cell(3, 7), new Cell(4, 7)};
+        assertThat((result), is(expected));
+    }
+    /**
+     * Test the move of the queen.
+     */
+    @Test
+    public void whenTheQueenMoveOnBoard() {
+        Queen queen = new Queen(new Cell(0, 3));
+        Cell[] result = queen.way(new Cell(0, 3), new Cell(4, 7));
+        Cell[] expected = {new Cell(1, 4), new Cell(2, 5), new Cell(3, 6), new Cell(4, 7)};
+        assertThat((result), is(expected));
+    }
+    /**
+     * Test the move of the king.
+     */
+    @Test
+    public void whenTheKingMoveOnBoard() {
+        King king = new King(new Cell(0, 4));
+        Cell[] result = king.way(new Cell(0, 4), new Cell(1, 5));
+        Cell[] expected = {new Cell(1, 5)};
+        assertThat((result), is(expected));
+    }
+    /**
+     * Test the move of the knight.
+     */
+    @Test
+    public void whenTheKnightMoveOnBoard() {
+        Knight knight = new Knight(new Cell(4, 3));
+        Cell[] result = knight.way(new Cell(4, 3), new Cell(2, 4));
+        Cell[] expected = {new Cell(2, 4)};
+        assertThat((result), is(expected));
     }
 }
