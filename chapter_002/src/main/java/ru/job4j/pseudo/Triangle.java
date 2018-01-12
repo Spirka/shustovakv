@@ -11,7 +11,7 @@ public class Triangle implements Shape {
     public String draw() {
         int h = 3;
         StringBuilder pic = new StringBuilder();
-        for (int i = 0 ; i < h; i++) {
+        for (int i = 0; i < h; i++) {
             for (int j = 0; j < h * 2 - 1; j++) {
                 if (j > h - 2 - i && j < h + i) {
                     pic.append("^");

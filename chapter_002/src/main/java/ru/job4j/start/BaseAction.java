@@ -1,7 +1,4 @@
 package ru.job4j.start;
-
-import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Tracker;
 /**
  * Abstract Class BaseAction.
  * @author  shustovakv
