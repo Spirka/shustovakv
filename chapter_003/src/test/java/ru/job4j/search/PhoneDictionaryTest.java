@@ -37,7 +37,7 @@ public class PhoneDictionaryTest {
     @Test
     public void whenFindByName() {
         List<Person> persons = phones.find("Kseniya");
-        assertThat(persons.iterator().next().getSurname(), is("Shustova"));
+        Assert.assertThat(persons.iterator().next().getSurname(), Is.is("Shustova"));
     }
 
     /**
@@ -47,7 +47,7 @@ public class PhoneDictionaryTest {
     public void whenRemovePerson() {
         Person person = new Person("Kseniya", "Shustova", "0802435", "Saint Petersburg");
         phones.add(person);
-        assertThat((phones.remove(person)), is(true));
+        Assert.assertThat((phones.remove(person)), Is.is(true));
     }
     /**
      * Test update person.
@@ -57,6 +57,6 @@ public class PhoneDictionaryTest {
         Person replaceable = new Person("Kseniya", "Shustova", "0802435", "Saint Petersburg");
         this.phones.add(replaceable);
         Person person = new Person("Ivan", "Ivanov", "1234567", "Spb");
-        assertThat(phones.update(replaceable, person), is(replaceable));
+        Assert.assertThat(phones.update(replaceable, person), is(replaceable));
     }
 }
