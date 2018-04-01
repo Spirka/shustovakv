@@ -43,4 +43,21 @@ public class ConvertListTest {
         int[][] result = {{1, 2, 3}, {4, 5, 6}, {7, 0, 0}};
         assertThat(convertList.toArray(list, 3), is(result));
     }
+    /**
+     * Test convert.
+     */
+    @Test
+    public void whenListArrayConvertToListInteger() {
+        ConvertList convertList = new ConvertList();
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{1, 2});
+        list.add(new int[]{3, 4, 5, 6});
+        List<Integer> result = convertList.convert(list);
+        List<Integer> expected = new ArrayList<>();
+        int[] element = {1, 2, 3, 4, 5, 6};
+        for (int value : element) {
+            expected.add(value);
+        }
+        assertThat(result, is(expected));
+    }
 }

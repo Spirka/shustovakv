@@ -1,14 +1,13 @@
-/**
- * Class ConvertList.
- * @author  shustovakv
- * @since 26.03.2018
- */
 package ru.job4j.convert;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * Class ConvertList.
+ * @author  shustovakv
+ * @since 26.03.2018
+ */
 public class ConvertList {
     /**
      * Method toList
@@ -44,6 +43,21 @@ public class ConvertList {
                 } else {
                     break;
                 }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Method convert конвертирует лист массивов в один лист Integer.
+     * @param list of arrays.
+     * @return List Integer.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        for (int[] element : list) {
+            for (int value : element) {
+                    result.add(value);
             }
         }
         return result;
