@@ -11,12 +11,8 @@ public class Tracker {
     /**
      * Поле массив объектов класса Item.
      */
-    private final Item[] items = new Item[100];
+    private final ArrayList<Item> items = new ArrayList<>();
 
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
     /**
      * Поле генерации случайных чисел.
      */
@@ -26,11 +22,8 @@ public class Tracker {
      * @param item новая заявка
      */
     public Item add(Item item) {
-        //передаем в заявку рандомный id
         item.setId(this.generateId());
-        //добавляем заявку в массив items и передвигаемся в следующую позицию.
-        this.items[this.position++] = item;
-        // возвращаем заявку.
+        this.items.add(item);
         return item;
     }
     /**
@@ -39,8 +32,6 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId() {
-        // Получаем псевдорандомное число типа int, и чтобы оно не повторялось добавляем текущее время,
-        // метод valueOf преобразует числовое значение в строку.
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
     /**
@@ -50,11 +41,9 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void update(Item item) {
-        for (int index = 0; index < this.position; index++) {
-            // Проверяем, если в массиве есть элементы и мы находим id совпадающий с нашим.
-            // присваиваем найденному элемену item.
-            if (item != null && this.items[index].getId().equals(item.getId())) {
-                this.items[index] = item;
+        for (Item element : items) {
+            if (element.getId().equals(item.getId())) {
+                this.items.set(this.items.indexOf(element), item);
                 break;
             }
         }
@@ -67,10 +56,9 @@ public class Tracker {
      * @param item заявка.
      */
     public void delete(Item item) {
-        for (int index = 0; index < this.position; index++) {
-            if (item != null && this.items[index].getId().equals(item.getId())) {
-                System.arraycopy(this.items, index + 1, this.items, index, this.position - index);
-                position--;
+        for (Item element : items) {
+            if (element.getId().equals(item.getId())) {
+                this.items.remove(element);
                 break;
             }
         }
@@ -79,10 +67,8 @@ public class Tracker {
      * Метод public Item[] findAll() реализует получение списка заявок.
      * @return копию массива this.items без null элементов.
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        System.arraycopy(this.items, 0, result, 0, this.position);
-        return result;
+    public ArrayList<Item> findAll() {
+        return new ArrayList<>(this.items);
     }
     /**
      * Метод получение списка по имени. проверяет в цикле все элементы массива this.items,
@@ -91,16 +77,14 @@ public class Tracker {
      * @param key уникальный ключ.
      * @return результирующий массив.
      */
-    public Item[] findByName(String key) {
-        // Создаем результирующий массив.
-        Item[] result = new Item[this.position];
-        int j = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i] != null && this.items[i].getName().equals(key)) {
-                result[j++] = this.items[i];
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>();
+        for (Item element : this.items) {
+            if (element.getName().contains(key)) {
+                result.add(element);
             }
         }
-        return Arrays.copyOf(result, j);
+        return result;
     }
     /**
      * Проверяет в цикле все элементы массива this.items, сравнивая id с аргументом String id.
@@ -109,9 +93,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
+        for (Item element : items) {
+            if (element.getId().equals(id)) {
+                result = this.items.get(this.items.indexOf(element));
                 break;
             }
         }

@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.ArrayList;
+
 /**
  * Class Item.
  * @author  shustovakv
@@ -29,7 +32,7 @@ public class Item {
     /**
      * Поле комментарий.
      */
-    private String[] comments;
+    private ArrayList<String> comments;
     /**
      * Метод getId.
      */
@@ -81,13 +84,13 @@ public class Item {
     /**
      * Метод getComments.
      */
-    public String[] getComments() {
+    public ArrayList<String> getComments() {
         return comments;
     }
     /**
      * Метод setComments.
      */
-    public void setComments(String[] comments) {
+    public void setComments(ArrayList<String> comments) {
         this.comments = comments;
     }
 }

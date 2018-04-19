@@ -1,8 +1,13 @@
 package ru.job4j.start;
 
-public class MenuOutException extends RuntimeException {
+/**
+ * Class MenuOutException.
+ * @author  shustovakv
+ * @since 14.12.2017
+ */
+class MenuOutException extends RuntimeException {
 
-    public MenuOutException(String msg) {
+    MenuOutException(String msg) {
         super(msg);
     }
 }

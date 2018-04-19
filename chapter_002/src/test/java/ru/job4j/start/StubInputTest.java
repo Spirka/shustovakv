@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
 
@@ -23,7 +24,7 @@ public class StubInputTest {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "123456789", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
     /**
      * Test show all.
@@ -35,7 +36,7 @@ public class StubInputTest {
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
         Item[] result = {item};
-        assertThat(tracker.findAll(), is(result));
+        assertThat(tracker.findAll().toArray(), is(result));
     }
     /**
      * Test update.
@@ -58,7 +59,7 @@ public class StubInputTest {
         Input input = new StubInput(new String[]{"3", first.getId(), "6"});
         new StartUI(input, tracker).init();
         Item[] result = {};
-        assertThat(tracker.findAll(), is(result));
+        assertThat(tracker.findAll().toArray(), is(result));
     }
     /**
      * Test findById.
@@ -68,7 +69,6 @@ public class StubInputTest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "test desc", 123L));
         Input input = new StubInput(new String[]{"5", item.getId(), "6"});
-        ValidateInput validateInput;
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name"));
     }
@@ -82,6 +82,6 @@ public class StubInputTest {
         Input input = new StubInput(new String[]{"4", item.getName(), "6"});
         new StartUI(input, tracker).init();
         Item[] result = {item};
-        assertThat(tracker.findByName("test name"), is(result));
+        assertThat(tracker.findByName("test name").toArray(), is(result));
     }
 }

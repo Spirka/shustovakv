@@ -1,5 +1,6 @@
 package ru.job4j.start;
 
+import ru.job4j.tracker.ConsoleInput;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 
@@ -12,7 +13,7 @@ public class StartUI {
     /**
      * Получение данных от пользователя.
      */
-    private final Input input;
+    private final ValidateInput input;
     /**
      * Диапазон значений меню.
      */
@@ -27,7 +28,7 @@ public class StartUI {
      * @param tracker хранилище заявок.
      */
     StartUI(Input input, Tracker tracker) {
-        this.input = input;
+        this.input = new ValidateInput(input);
         this.tracker = tracker;
     }
     /**
@@ -46,6 +47,6 @@ public class StartUI {
      * @param args аргументы.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ConsoleInput(), new Tracker()).init();
     }
 }

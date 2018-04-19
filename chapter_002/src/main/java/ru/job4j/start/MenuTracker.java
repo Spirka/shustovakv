@@ -3,6 +3,9 @@ package ru.job4j.start;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
+
+import java.util.ArrayList;
+
 /**
  * Class MenuTracker.
  * @author  shustovakv
@@ -12,7 +15,7 @@ class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    private BaseAction[] actions = new BaseAction[6];
+    private ArrayList<BaseAction> actions = new ArrayList<>();
 
     MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -20,17 +23,17 @@ class MenuTracker {
     }
 
     void fillActions() {
-        this.actions[0] = this.new AddItem("AddItem", 0);
-        this.actions[1] = new MenuTracker.ShowItems("ShowItems", 1);
-        this.actions[2] = new EditItem("EditItem", 2);
-        this.actions[3] = this.new DeleteItem("DeleteItem", 3);
-        this.actions[4] = this.new FindItemsByName("FindItemsByName", 4);
-        this.actions[5] = this.new FindItemById("FindItemById", 5);
+        this.actions.add(0, new AddItem("AddItem", 0));
+        this.actions.add(1, new MenuTracker.ShowItems("ShowItems", 1));
+        this.actions.add(2, new EditItem("EditItem", 2));
+        this.actions.add(3, new DeleteItem("DeleteItem", 3));
+        this.actions.add(4, new FindItemsByName("FindItemsByName", 4));
+        this.actions.add(5, new FindItemById("FindItemById", 5));
     }
 
 
     void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     void show() {
@@ -68,8 +71,8 @@ class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Список заявок----------");
-            Item[] result = tracker.findAll();
-            if (result.length == 0) {
+            ArrayList<Item> result = tracker.findAll();
+            if (result.isEmpty()) {
                 System.out.println("Заявки отсутствуют");
             } else {
                 for (Item item : result) {
@@ -142,7 +145,7 @@ class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Поиск заявок по имени----------");
             String key = input.ask("Введите имя заявки : ");
-            Item[] result = tracker.findByName(key);
+            ArrayList<Item> result = tracker.findByName(key);
             System.out.println("----------Список заявок c getName : " + key + "----------");
             for (Item item : result) {
                 System.out.println(item);
