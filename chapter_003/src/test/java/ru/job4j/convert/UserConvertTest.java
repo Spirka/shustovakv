@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Class UserConvertTest.
  * @author  shustovakv
- * @since 20.04.2018
+ * @since 12.04.2018
  */
 public class UserConvertTest {
     /**
@@ -19,8 +19,8 @@ public class UserConvertTest {
      */
     @Test
     public void whenListOfUsersConvertToHashMap() {
-        User first = new User(1, "Ivan", "Moscow", 27);
-        User second = new User(2, "Kirill", "Saint-Petersburg", 32);
+        User first = new User(1, "Ivan", "Moscow");
+        User second = new User(2, "Kirill", "Saint-Petersburg");
         List<User> userList = new ArrayList<>();
         userList.add(first);
         userList.add(second);
@@ -29,16 +29,5 @@ public class UserConvertTest {
         assertTrue(hashMap.containsKey(1));
         assertTrue(hashMap.containsValue(second));
         assertThat(hashMap.size(), is(2));
-    }
-    @Test
-    public void whenListOfUsersIsSortedByAgeToTreeSet() {
-        User first = new User(1, "Egor", "Moskow", 35);
-        User second = new User(2, "Kirill", "Saint-Petersburg", 32);
-        User third = new User(3, "Maxim", "Ivanovo", 18);
-        List<User> userList = new ArrayList<>(Arrays.asList(first, second, third));
-        UserConvert userConvert = new UserConvert();
-        Set<User> treeSet = userConvert.sort(userList);
-        Iterator<User> it = treeSet.iterator();
-        assertThat(it.next(), is(third));
     }
 }
