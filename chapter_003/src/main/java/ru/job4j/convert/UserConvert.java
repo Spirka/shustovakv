@@ -2,6 +2,8 @@ package ru.job4j.convert;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Class UserConvert.
@@ -18,5 +20,11 @@ public class UserConvert {
             result.put(user.getId(), user);
         }
         return result;
+    }
+    /**
+     * Method sort
+     */
+    public Set<User> sort(List<User> users) {
+        return new TreeSet<>(users);
     }
 }
