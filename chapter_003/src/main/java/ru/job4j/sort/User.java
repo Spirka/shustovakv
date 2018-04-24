@@ -8,20 +8,39 @@ import java.util.Objects;
  * @since 20.04.2018
  */
 public class User implements Comparable<User> {
+
     /**
      * Field name.
      */
     private String name;
+
     /**
      * Field age.
      */
     private int age;
+
     /**
      * Constructor.
      */
     User(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    /**
+     * Method getter
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Method getter
+     * @return age
+     */
+    public int getAge() {
+        return age;
     }
 
     /**
