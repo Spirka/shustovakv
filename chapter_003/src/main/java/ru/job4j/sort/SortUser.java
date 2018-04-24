@@ -44,7 +44,7 @@ public class SortUser {
      * потом по возрасту.
      * @return sorted list of users by name length and then by age.
      */
-    public List<User> sortByAllFields (final List<User> users) {
+    public List<User> sortByAllFields(final List<User> users) {
         //throw new UnsupportedOperationException("sortByAllFields");
         List<User> result = new ArrayList<>(users);
         result.sort(Comparator.comparing(User::getName).thenComparingInt(User::getAge)
