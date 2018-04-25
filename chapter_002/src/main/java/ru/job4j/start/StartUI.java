@@ -27,14 +27,14 @@ public class StartUI {
      * @param input ввод данных.
      * @param tracker хранилище заявок.
      */
-    StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = new ValidateInput(input);
         this.tracker = tracker;
     }
     /**
      * Основой цикл программы.
      */
-    void init() {
+    public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
         do {

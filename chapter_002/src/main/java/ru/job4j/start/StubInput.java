@@ -23,7 +23,11 @@ public class StubInput implements Input {
 
     private Iterator<String> it;
 
-    StubInput(String[] answers) {
+    /**
+     * Constructor.
+     * @param answers
+     */
+    public StubInput(String[] answers) {
        this.it = Arrays.asList(answers).iterator();
     }
 

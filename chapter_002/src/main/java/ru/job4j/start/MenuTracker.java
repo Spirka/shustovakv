@@ -11,18 +11,26 @@ import java.util.ArrayList;
  * @author  shustovakv
  * @since 11.12.2017
  */
-class MenuTracker {
+public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
     private ArrayList<BaseAction> actions = new ArrayList<>();
 
-    MenuTracker(Input input, Tracker tracker) {
+    /**
+     * Constructor.
+     * @param input
+     * @param tracker
+     */
+    public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
-    void fillActions() {
+    /**
+     * Method fill actions.
+     */
+    public void fillActions() {
         this.actions.add(new AddItem("AddItem", 0));
         this.actions.add(new MenuTracker.ShowItems("ShowItems", 1));
         this.actions.add(new EditItem("EditItem", 2));
@@ -32,11 +40,15 @@ class MenuTracker {
     }
 
 
-    void select(int key) {
+    /**
+     * Method select.
+     * @param key
+     */
+    public void select(int key) {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
-    void show() {
+    public void show() {
         for (BaseAction action : this.actions) {
             if (action != null) {
                 System.out.println(action.info());
@@ -44,12 +56,25 @@ class MenuTracker {
         }
     }
 
+    /**
+     * Class AddItem.
+     */
     private class AddItem extends BaseAction {
 
+        /**
+         * Constructor
+         * @param name
+         * @param key
+         */
         private AddItem(String name, int key) {
             super(name, key);
         }
 
+        /**
+         * Method execute.
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Добавление новой заявки----------");
@@ -62,12 +87,25 @@ class MenuTracker {
         }
     }
 
+    /**
+     * Class show items.
+     */
     private static class ShowItems extends BaseAction {
 
+        /**
+         * Constructor.
+         * @param name
+         * @param key
+         */
         private ShowItems(String name, int key) {
             super(name, key);
         }
 
+        /**
+         * Method execute.
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Список заявок----------");
@@ -83,12 +121,25 @@ class MenuTracker {
         }
     }
 
-    class EditItem extends BaseAction {
+    /**
+     * Class EditItem.
+     */
+    public class EditItem extends BaseAction {
 
+        /**
+         * Constructor.
+         * @param name
+         * @param key
+         */
         private EditItem(String name, int key) {
             super(name, key);
         }
 
+        /**
+         * Method execute.
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Обновление заявки----------");
@@ -107,17 +158,35 @@ class MenuTracker {
             }
         }
     }
+
+    /**
+     * Class DeleteItem.
+     */
     private class DeleteItem extends BaseAction {
 
+        /**
+         * Constructor.
+         * @param name
+         * @param key
+         */
         private DeleteItem(String name, int key) {
             super(name, key);
         }
 
+        /**
+         * Method key
+         * @return 3
+         */
         @Override
         public int key() {
             return 3;
         }
 
+        /**
+         * Method execute.
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Удаление заявки----------");
@@ -131,16 +200,35 @@ class MenuTracker {
             }
         }
     }
+
+    /**
+     * Class FindItemsByName
+     */
     private class FindItemsByName extends BaseAction {
 
+        /**
+         * Constructor.
+         * @param name
+         * @param key
+         */
         private FindItemsByName(String name, int key) {
             super(name, key);
         }
+
+        /**
+         * Method key
+         * @return 4
+         */
         @Override
         public int key() {
             return 4;
         }
 
+        /**
+         * Method execute.
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Поиск заявок по имени----------");
@@ -152,17 +240,35 @@ class MenuTracker {
             }
         }
     }
+
+    /**
+     * Class FindItemById.
+     */
     private class FindItemById extends BaseAction {
 
+        /**
+         * Constructor.
+         * @param name
+         * @param key
+         */
         private FindItemById(String name, int key) {
             super(name, key);
         }
 
+        /**
+         * Method key
+         * @return 5
+         */
         @Override
         public int key() {
             return 5;
         }
 
+        /**
+         * Method execute
+         * @param input
+         * @param tracker
+         */
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("----------Поиск заявки по ID----------");
