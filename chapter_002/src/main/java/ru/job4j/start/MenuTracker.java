@@ -23,12 +23,12 @@ class MenuTracker {
     }
 
     void fillActions() {
-        this.actions.add(0, new AddItem("AddItem", 0));
-        this.actions.add(1, new MenuTracker.ShowItems("ShowItems", 1));
-        this.actions.add(2, new EditItem("EditItem", 2));
-        this.actions.add(3, new DeleteItem("DeleteItem", 3));
-        this.actions.add(4, new FindItemsByName("FindItemsByName", 4));
-        this.actions.add(5, new FindItemById("FindItemById", 5));
+        this.actions.add(new AddItem("AddItem", 0));
+        this.actions.add(new MenuTracker.ShowItems("ShowItems", 1));
+        this.actions.add(new EditItem("EditItem", 2));
+        this.actions.add(new DeleteItem("DeleteItem", 3));
+        this.actions.add(new FindItemsByName("FindItemsByName", 4));
+        this.actions.add(new FindItemById("FindItemById", 5));
     }
 
 
