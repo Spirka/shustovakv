@@ -23,7 +23,7 @@ package ru.job4j.loop;
 					  builder.append("x");
 					 }
 			  }
-			  builder.append("\r\n");
+			  builder.append(System.lineSeparator());
 		  }
 		  return builder.toString();
 	  }
