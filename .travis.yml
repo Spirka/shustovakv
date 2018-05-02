@@ -1,0 +1,17 @@
+# используем язык Java.
+Language: java
+# используем режим обычного пользователя для сборки проекта.
+sudo: false
+
+# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
+# здесь используется сторонний сервис https://codecov.io/
+after_sucsess:
+  - bush <(curl -s https://codecov.io/bash)
+
+# отправлять уведомления на почту shustovakv@mail.ru если сборка упала
+notifications:
+  email:
+    recipients:
+      - shustovakv@mail.ru
+    on_sucsess: never # default: change
+    on_failure: always # default: always
