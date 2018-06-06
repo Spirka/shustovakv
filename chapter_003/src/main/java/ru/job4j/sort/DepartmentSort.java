@@ -59,8 +59,7 @@ public class DepartmentSort {
      * @return отсортированный по возрастанию список департаментов.
      */
     public String[] departmentSortAscend() {
-        Comparator<String> comparator = Comparator.naturalOrder();
-        return sort(comparator);
+        return sort(Comparator.naturalOrder());
     }
 
     /**
