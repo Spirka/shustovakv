@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Class Bank.
+ * Class MatrixIterator.
  *
  * @author shustovakv
  * @since 08.06.2018
