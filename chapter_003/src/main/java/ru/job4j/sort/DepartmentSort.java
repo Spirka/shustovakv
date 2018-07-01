@@ -12,7 +12,7 @@ public class DepartmentSort {
     /**
      * Field unsorted codes.
      */
-    private Set<String> unsortedCodes = new HashSet<>();
+    private Set<Org> unsortedCodes = new HashSet<>();
 
     /**
      * Constructor
@@ -24,6 +24,38 @@ public class DepartmentSort {
         }
     }
 
+    static class Org {
+
+        private List<String> codes;
+
+        public Org(List<String> codes) {
+            this.codes = new ArrayList<>(codes);
+        }
+
+        @Override
+        public String toString() {
+            StringJoiner stringJoiner = new StringJoiner("/");
+            for (String code : this.codes) {
+                stringJoiner.add(code);
+            }
+            return stringJoiner.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Org org = (Org) o;
+            return Objects.equals(codes, org.codes);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(codes);
+        }
+    }
+
     /**
      * Method parse
      * Разделяет строку на отдельные коды департаментов,
@@ -32,58 +64,67 @@ public class DepartmentSort {
      */
     private  void parse(String departmentCode) {
         String[] splitCode = departmentCode.split("/");
-        StringJoiner stringJoiner = new StringJoiner("/");
+        List<String> codeOrg = new ArrayList<>();
         for (String code : splitCode) {
-            stringJoiner.add(code);
-            this.unsortedCodes.add(stringJoiner.toString());
+            codeOrg.add(code);
+            this.unsortedCodes.add(new Org(codeOrg));
         }
-
     }
 
     /**
      * Method sort.
-     * @param order порядок сортировки.
      * @return result
      */
-    private String[] sort(Comparator<String> order) {
-        List<String> departmentSorted = new ArrayList<>(this.unsortedCodes);
-        departmentSorted.sort(order);
-        String[] result = new String[departmentSorted.size()];
-        departmentSorted.toArray(result);
+    private String[] sort(Comparator<Org> order) {
+        List<Org> departments = new ArrayList<>(this.unsortedCodes);
+        departments.sort(order);
+        String[] result = new String[departments.size()];
+        Iterator<Org> it = departments.iterator();
+        for (int i = 0; i < result.length; i++) {
+            result[i] = it.next().toString();
+        }
         return result;
     }
 
     /**
-     * Method department sort ascend.
-     * Передает в метод sort порядок сортировки по возрастанию.
-     * @return отсортированный по возрастанию список департаментов.
+     * Передает в метод sort компаратор для сортировки кодов по порядку
+     * @return comparator ascend to sort
      */
     public String[] departmentSortAscend() {
-        return sort(Comparator.naturalOrder());
+
+        Comparator<Org> comparator = (o1, o2) -> {
+            int result = 0;
+            Iterator<String> it1 = o1.codes.iterator();
+            Iterator<String> it2 = o2.codes.iterator();
+
+            while (it1.hasNext() && it2.hasNext() && result == 0) {
+                result = it1.next().compareTo(it2.next());
+            }
+            if(result == 0) {
+                result = Integer.compare(o1.codes.size(), o2.codes.size());
+            }
+            return result;
+        };
+        return sort(comparator);
     }
 
     /**
-     * Method department sort descend.
-     * ередает в метод sort порядок сортировки по убыванию.
-     * @return отсортированный по убыванию список департаментов.
+     * Передает в метод sort компаратор для сортировки кодов в порядке убывания
+     * @return comparator descend to sort
      */
     public String[] departmentSortDescend() {
-        Comparator<String> comparator = (o1, o2) -> {
-            if (o1.compareTo(o2) == 0) {
-                return 0;
+
+        Comparator<Org> comparator = (o1, o2) -> {
+            Iterator<String> it1 = o1.codes.iterator();
+            Iterator<String> it2 = o2.codes.iterator();
+            int result = 0;
+            while (it1.hasNext() && it2.hasNext() && result == 0) {
+                result = -1 * it1.next().compareTo(it2.next());
             }
-            char[] array1 = o1.toCharArray();
-            char[] array2 = o2.toCharArray();
-            for (int i = 0; i < array1.length; i++) {
-                if (i >= array2.length) {
-                    return 1;
-                }
-                int indexCompare = Character.compare(array1[i], array2[i]);
-                if (indexCompare != 0) {
-                    return indexCompare * -1;
-                }
+            if(result == 0) {
+                result = Integer.compare(o1.codes.size(), o2.codes.size());
             }
-            return array2.length > array1.length ? -1 : 1;
+            return result;
         };
         return sort(comparator);
     }
