@@ -43,8 +43,12 @@ public class DepartmentSort {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Org org = (Org) o;
             return Objects.equals(codes, org.codes);
         }
@@ -100,7 +104,7 @@ public class DepartmentSort {
             while (it1.hasNext() && it2.hasNext() && result == 0) {
                 result = it1.next().compareTo(it2.next());
             }
-            if(result == 0) {
+            if (result == 0) {
                 result = Integer.compare(o1.codes.size(), o2.codes.size());
             }
             return result;
@@ -121,7 +125,7 @@ public class DepartmentSort {
             while (it1.hasNext() && it2.hasNext() && result == 0) {
                 result = -1 * it1.next().compareTo(it2.next());
             }
-            if(result == 0) {
+            if (result == 0) {
                 result = Integer.compare(o1.codes.size(), o2.codes.size());
             }
             return result;
