@@ -22,7 +22,6 @@ public class Content {
         for (int i = 0; i < charsOrigin.length; i++) {
             for (int j = 0; j < charsSub.length; j++) {
                 if (charsOrigin[i] == charsSub[j]) {
-                    boolean flag = true;
                     break;
                 } else {
                     if (charsSub[j] != charsOrigin[j + i]) {
