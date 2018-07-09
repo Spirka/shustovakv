@@ -65,22 +65,17 @@ public class PrimeIterator implements Iterator<Integer> {
      * @return true only if the number is prime
      */
     private boolean isPrime(int number) {
-        boolean result = true;
-        if (number > 1) {
-            if (number > 2) {
-                if (number % 2 == 0) {
-                    result = false;
-                } else {
-                    for (int i = 2; i < number / 2; i++) {
-                        if (number / i == 0) {
-                            result = false;
-                        }
-                    }
+        boolean found = true;
+        if (number < 2) {
+            found = false;
+        } else {
+            for (int i = 2; (i * i <= number); i++) {
+                if (number % i == 0) {
+                    found = false;
+                    break;
                 }
             }
-        } else {
-            result = false;
         }
-        return result;
+        return found;
     }
 }
