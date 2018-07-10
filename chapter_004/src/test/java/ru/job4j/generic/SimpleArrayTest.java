@@ -10,11 +10,12 @@ import static org.junit.Assert.assertThat;
 
 public class SimpleArrayTest {
 
-    SimpleArray<Integer> list;
+    private SimpleArray<Integer> list;
 
     @Before
     public void setUp() {
-        list = new SimpleArray<>();
+
+        list = new SimpleArray<>(4);
         list.add(1);
         list.add(3);
         list.add(-3);
@@ -45,11 +46,13 @@ public class SimpleArrayTest {
 
     @Test
     public void shouldReturnNumbers() {
+        list.add(4);
         Iterator it = list.iterator();
         assertThat(it.next(), is(1));
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(3));
         assertThat(it.next(), is(-3));
+        assertThat(it.next(), is(4));
         assertThat(it.hasNext(), is(false));
 
     }
