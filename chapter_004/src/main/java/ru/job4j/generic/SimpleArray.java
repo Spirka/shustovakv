@@ -18,9 +18,13 @@ public class SimpleArray<T> implements Iterable<T> {
         this.objects = new Object[size];
     }
 
+    public SimpleArray() {
+        this.objects = new Object[0];
+    }
+
     public void add(T model) {
         if ((this.index + 1) > this.objects.length) {
-            throw new IndexOutOfBoundsException();
+            this.extendObjects();
         }
         this.objects[index++] = model;
     }
@@ -30,20 +34,23 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void delete(int index) {
-        this.objects[index] = this.objects[index + 1];
-        Object[] oldObjects = this.objects;
-        this.objects = new Object[this.objects.length - 1];
-        System.arraycopy(oldObjects, 0, this.objects, 0, index);
-        System.arraycopy(oldObjects, index + 1, this.objects, index, objects.length - index - 1);
+        System.arraycopy(this.objects, index + 1, this.objects, index, objects.length - index - 1);
+        this.objects[this.objects.length - 1] = null;
     }
 
     public T get(int position) {
         return (T) objects[position];
     }
+
     public int size() {
-        return this.objects.length;
+        return this.objects.length - 1;
     }
 
+    private void extendObjects() {
+        Object[] oldObjects = this.objects;
+        this.objects = new Object[oldObjects.length + 1];
+        System.arraycopy(oldObjects, 0, this.objects, 0, oldObjects.length);
+    }
     @Override
     public Iterator<T> iterator() {
         return new IteratorSimpleArray();

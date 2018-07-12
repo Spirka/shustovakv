@@ -24,7 +24,8 @@ public class SimpleArrayTest {
     @Test
     public void whenAddNewItem() {
         list.add(5);
-        assertThat(list.get(list.size() - 1), is(5));
+        list.add(2);
+        assertThat(list.get(list.size()), is(2));
     }
 
     @Test
