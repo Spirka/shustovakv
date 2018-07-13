@@ -38,6 +38,6 @@ public class UserStoreTest {
 
     @Test
     public void findById() {
-        assertThat(this.userStore.findById("Kate").getId(), is("Kate"));
+        assertThat(this.userStore.findById("Ivan").getId(), is("Ivan"));
     }
 }

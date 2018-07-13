@@ -34,8 +34,10 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void delete(int index) {
-        System.arraycopy(this.objects, index + 1, this.objects, index, objects.length - index - 1);
-        this.objects[this.objects.length - 1] = null;
+        if (index >= 0 && index < this.objects.length - 1) {
+            System.arraycopy(this.objects, index + 1, this.objects, index, objects.length - index - 1);
+            this.index--;
+        }
     }
 
     public T get(int position) {
@@ -43,7 +45,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public int size() {
-        return this.objects.length - 1;
+        return  this.index;
     }
 
     private void extendObjects() {
@@ -51,6 +53,7 @@ public class SimpleArray<T> implements Iterable<T> {
         this.objects = new Object[oldObjects.length + 1];
         System.arraycopy(oldObjects, 0, this.objects, 0, oldObjects.length);
     }
+
     @Override
     public Iterator<T> iterator() {
         return new IteratorSimpleArray();

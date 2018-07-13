@@ -37,7 +37,7 @@ public class RoleStoreTest {
         RoleStore expect = new RoleStore();
         expect.add(new Role("student"));
         expect.add(new Role("user"));
-        assertThat(this.roleStore.store.size() - 1, is(expect.store.size()));
+        assertThat(this.roleStore.store.size(), is(expect.store.size()));
     }
 
     @Test
