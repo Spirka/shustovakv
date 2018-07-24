@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Class ArrayContainer.
+ * Class ListContainer.
  * @author  shustovakv (mailto: shustovakv@mail.ru)
  * @since 23.07.2018
  */
