@@ -1,7 +1,5 @@
 package ru.job4j.list;
 
-import java.util.ArrayList;
-
 /**
  * Class DetectionOfCycle.
  * @author  shustovakv (mailto: shustovakv@mail.ru)
@@ -10,18 +8,34 @@ import java.util.ArrayList;
 public class DetectionOfCycle {
 
     boolean hasCycle(Node node) {
-        ArrayList<Node> list = new ArrayList<>();
-        do {
-            list.add(node);
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i) == node) {
-                    return true;
-                }
+        if (node == null) {
+            return false;
+        }
+        Node slow, fast;
+
+        slow = fast = node;
+
+        while (true) {
+
+            slow = slow.next;
+
+            if (fast.next != null) {
+                fast = fast.next.next;
+
+            } else {
+                return false;
             }
-            node = node.next;
-        } while (node != null);
-        return false;
+
+            if (slow == null || fast == null) {
+                return false;
+            }
+
+            if (slow == fast) {
+                return true;
+            }
+        }
     }
+
     public static class Node<T> {
         T value;
         Node<T> next;
