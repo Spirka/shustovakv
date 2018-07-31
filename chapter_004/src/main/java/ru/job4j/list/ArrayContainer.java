@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author  shustovakv (mailto: shustovakv@mail.ru)
  * @since 20.07.2018
  */
-public class ArrayContainer<E> implements SimpleContainer {
+public class ArrayContainer<E> implements SimpleContainer<E> {
 
     private Object[] container;
     private int modCount = 0;
@@ -38,7 +38,7 @@ public class ArrayContainer<E> implements SimpleContainer {
     }
 
     @Override
-    public void add(Object o) {
+    public void add(E o) {
         this.container[index++] = o;
         this.modCount++;
 
