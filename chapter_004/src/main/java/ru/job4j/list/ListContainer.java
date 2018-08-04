@@ -23,31 +23,31 @@ public class ListContainer<E> implements SimpleContainer<E> {
         this.modCount = 0;
     }
 
-    public boolean isEmpty() {
-        return this.first == null;
-    }
-
     public void insertLast(E date) {
-        Node<E> newLink = new Node<>(date);
-        if (isEmpty()) {
+        Node<E> oldLast = this.last;
+        Node<E> newLink = new Node<>(oldLast, date, null);
+        this.last = newLink;
+        if (oldLast == null) {
             this.first = newLink;
-            this.last = newLink;
         } else {
-            newLink.next = this.last;
-            this.last.next = newLink;
-            this.last = newLink;
+            oldLast.next = newLink;
+            newLink.prev = oldLast;
         }
         this.size++;
         this.modCount++;
     }
 
     public void insertFirst(E date) {
-        Node<E> newLink = new Node<>(date);
-        if (isEmpty()) {
-            this.last = newLink;
-            newLink.next = this.first;
+        Node<E> oldFirst = this.first;
+        Node<E> newLink = new Node<>(oldFirst, date, null);
+        if (oldFirst == null) {
             this.first = newLink;
+        } else {
+            oldFirst.prev = newLink;
+            newLink.next = oldFirst;
         }
+        this.size++;
+        this.modCount++;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ListContainer<E> implements SimpleContainer<E> {
             result = result.prev;
             indexSearch++;
         }
-        return (E) result.item;
+        return result.item;
     }
 
     public int getSize() {
@@ -74,24 +74,27 @@ public class ListContainer<E> implements SimpleContainer<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            private Node linkNext = ListContainer.this.first;
-            private int expectedModeCount = ListContainer.this.modCount;
+            Node<E> linkNext = ListContainer.this.first;
+            int expectModeCount = ListContainer.this.modCount;
 
             @Override
             public boolean hasNext() {
-                return this.linkNext != null;
+                return linkNext != null;
             }
-
             @Override
             public E next() {
-                if (this.expectedModeCount != ListContainer.this.modCount) {
-                    throw new ConcurrentModificationException();
-                } else if (this.linkNext == null) {
+                checkModification();
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Object element = this.linkNext.item;
-                this.linkNext = this.linkNext.prev;
-                return (E) element;
+                E res = linkNext.item;
+                linkNext = linkNext.next;
+                return res;
+            }
+            private void checkModification() {
+                if (this.expectModeCount != ListContainer.this.modCount) {
+                    throw new ConcurrentModificationException();
+                }
             }
         };
     }
@@ -108,9 +111,9 @@ public class ListContainer<E> implements SimpleContainer<E> {
             this.next = null;
         }
 
-        public Node(E item, Node<E> prev, Node<E> next) {
-            this.item = item;
+        public Node(Node<E> prev, E item, Node<E> next) {
             this.prev = prev;
+            this.item = item;
             this.next = next;
         }
     }
