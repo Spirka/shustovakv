@@ -39,7 +39,7 @@ public class ListContainer<E> implements SimpleContainer<E> {
 
     public void insertFirst(E date) {
         Node<E> oldFirst = this.first;
-        Node<E> newLink = new Node<>(oldFirst, date, null);
+        Node<E> newLink = new Node<>(null, date, oldFirst);
         if (oldFirst == null) {
             this.first = newLink;
         } else {
@@ -63,6 +63,16 @@ public class ListContainer<E> implements SimpleContainer<E> {
             result = result.prev;
             indexSearch++;
         }
+        return result.item;
+    }
+
+    public E deleteFirst(int index) {
+        if (this.first == null) {
+            throw new NoSuchElementException();
+        }
+        Node<E> result = first;
+        this.first = this.first.next;
+        this.size--;
         return result.item;
     }
 
