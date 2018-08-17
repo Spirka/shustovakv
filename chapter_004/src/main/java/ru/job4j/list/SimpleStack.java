@@ -1,8 +1,5 @@
 package ru.job4j.list;
 
-
-import java.util.NoSuchElementException;
-
 /**
  * Class SimpleStack.
  * @author  shustovakv (mailto: shustovakv@mail.ru)
@@ -10,6 +7,7 @@ import java.util.NoSuchElementException;
  */
 public class SimpleStack<T> {
 
+    private ListContainer<T> container = new ListContainer<>();
     private Node node;
     private int size;
 
@@ -19,27 +17,11 @@ public class SimpleStack<T> {
     }
 
     public void push(T value) {
-        Node<T> node = new Node<>(value);
-
-        if (this.node == null) {
-            this.node = node;
-        } else {
-            node.next = this.node;
-            this.node = node;
-        }
-        this.size++;
+        this.container.insertLast(value);
     }
 
     public T poll() {
-
-        if (this.node == null) {
-            throw new NoSuchElementException();
-        }
-
-        Node<T> result = node;
-        this.node = this.node.next;
-        this.size--;
-        return result.item;
+        return this.container.deleteFirst();
     }
 
     private static class Node<T> {

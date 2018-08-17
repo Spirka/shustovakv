@@ -1,7 +1,5 @@
 package ru.job4j.list;
 
-import java.util.NoSuchElementException;
-
 /**
  * Class SimpleQueue.
  * @author  shustovakv (mailto: shustovakv@mail.ru)
@@ -9,6 +7,7 @@ import java.util.NoSuchElementException;
  */
 public class SimpleQueue<T> {
 
+    private ListContainer<T> container = new ListContainer<>();
     private Node<T> node;
     private int size;
 
@@ -18,27 +17,11 @@ public class SimpleQueue<T> {
     }
 
     public void push(T value) {
-        Node<T> node = new Node<>(value);
-        if (this.node == null) {
-            this.node = node;
-        } else {
-            Node<T> current = this.node;
-            while (current.last != null) {
-                current = current.last;
-            }
-            current.last = node;
-        }
-        this.size++;
+        this.container.insertFirst(value);
     }
 
     public T poll() {
-        if (this.node == null) {
-            throw new NoSuchElementException();
-        }
-        Node<T> result = this.node;
-        node = node.last;
-        this.size--;
-        return result.item;
+        return this.container.deleteFirst();
     }
 
     private static class Node<T> {

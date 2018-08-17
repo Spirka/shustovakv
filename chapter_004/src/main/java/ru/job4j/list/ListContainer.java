@@ -66,7 +66,7 @@ public class ListContainer<E> implements SimpleContainer<E> {
         return result.item;
     }
 
-    public E deleteFirst(int index) {
+    public E deleteFirst() {
         if (this.first == null) {
             throw new NoSuchElementException();
         }

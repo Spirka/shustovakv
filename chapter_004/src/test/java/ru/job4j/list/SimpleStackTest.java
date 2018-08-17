@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class SimpleStackTest {
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenSimpleStackPushAndPullElements() {
         SimpleStack<Integer> simpleStack = new SimpleStack<>();
         simpleStack.push(1);
