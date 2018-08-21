@@ -12,24 +12,15 @@ public class DetectionOfCycle {
             return false;
         }
         Node slow, fast;
-
-        slow = fast = node;
-
+        slow = node;
+        fast = node;
         while (true) {
-
             slow = slow.next;
-
-            if (fast.next != null) {
-                fast = fast.next.next;
-
+            if (fast == null || slow == null || fast.next == null) {
+                return false;
             } else {
-                return false;
+                fast = fast.next.next;
             }
-
-            if (slow == null || fast == null) {
-                return false;
-            }
-
             if (slow == fast) {
                 return true;
             }

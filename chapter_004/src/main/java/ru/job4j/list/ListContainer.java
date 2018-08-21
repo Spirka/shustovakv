@@ -40,8 +40,9 @@ public class ListContainer<E> implements SimpleContainer<E> {
     public void insertFirst(E date) {
         Node<E> oldFirst = this.first;
         Node<E> newLink = new Node<>(null, date, oldFirst);
+        this.first = newLink;
         if (oldFirst == null) {
-            this.first = newLink;
+            this.last = newLink;
         } else {
             oldFirst.prev = newLink;
             newLink.next = oldFirst;
@@ -70,7 +71,7 @@ public class ListContainer<E> implements SimpleContainer<E> {
         if (this.first == null) {
             throw new NoSuchElementException();
         }
-        Node<E> result = first;
+        Node<E> result = this.first;
         this.first = this.first.next;
         this.size--;
         return result.item;
@@ -89,22 +90,19 @@ public class ListContainer<E> implements SimpleContainer<E> {
 
             @Override
             public boolean hasNext() {
+                if (this.expectModeCount != ListContainer.this.modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return linkNext != null;
             }
             @Override
             public E next() {
-                checkModification();
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 E res = linkNext.item;
                 linkNext = linkNext.next;
                 return res;
-            }
-            private void checkModification() {
-                if (this.expectModeCount != ListContainer.this.modCount) {
-                    throw new ConcurrentModificationException();
-                }
             }
         };
     }

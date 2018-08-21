@@ -17,7 +17,7 @@ public class SimpleStack<T> {
     }
 
     public void push(T value) {
-        this.container.insertLast(value);
+        this.container.insertFirst(value);
     }
 
     public T poll() {

@@ -17,7 +17,7 @@ public class SimpleQueue<T> {
     }
 
     public void push(T value) {
-        this.container.insertFirst(value);
+        this.container.insertLast(value);
     }
 
     public T poll() {
