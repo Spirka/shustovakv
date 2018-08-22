@@ -37,6 +37,30 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         container = newArray;
     }
 
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
+
+    public int indexOf(Object o) {
+        int res = -1;
+        if (o == null) {
+            for (int i = 0; i < this.index; i++) {
+                if (this.container[i] == null) {
+                    res = i;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < this.index; i++) {
+                if (o.equals(container[i])) {
+                    res = i;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
     @Override
     public void add(E o) {
         this.container[index++] = o;
