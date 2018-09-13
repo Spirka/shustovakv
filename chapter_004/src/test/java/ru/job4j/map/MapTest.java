@@ -22,7 +22,7 @@ public class MapTest {
         System.out.println(String.format("Hash code User Two: %d", second.hashCode()));
         System.out.println("User one equals user two?: ");
         System.out.println(first.equals(second));
-        assertThat(first.equals(second), is(false));
+        assertThat(first.equals(second), is(true));
         Map<User, Object> testMap = new HashMap<>();
         testMap.put(first, "first");
         testMap.put(second, "second");
