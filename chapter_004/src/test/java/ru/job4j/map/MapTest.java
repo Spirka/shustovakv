@@ -27,6 +27,5 @@ public class MapTest {
         testMap.put(first, "first");
         testMap.put(second, "second");
         System.out.println(testMap);
-
     }
 }
