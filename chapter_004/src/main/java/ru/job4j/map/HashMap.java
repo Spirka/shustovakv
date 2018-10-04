@@ -34,7 +34,7 @@ public class HashMap<K, V> implements Iterable {
             resize(0);
             factor = this.array.length;
         }
-            int index = myHash(key, factor);
+            int index = findPosition(key, factor);
         if (this.array[index] != null) {
             return false;
         }
@@ -49,11 +49,11 @@ public class HashMap<K, V> implements Iterable {
         int factor = newArray.length;
         for (int i = 0; i < array.length; i++) {
             if (this.array[i] != null) {
-                int index = myHash((K) array[i].key, factor);
-                if (newArray[i] != null) {
-                    restart(factor);
-                } else {
+                int index = findPosition((K) array[i].key, factor);
+                if (newArray[i] == null) {
                     newArray[index] = this.array[i];
+                } else {
+                    restart(factor);
                 }
             }
         }
@@ -64,7 +64,7 @@ public class HashMap<K, V> implements Iterable {
         resize(factor);
     }
 
-    private int myHash(K key, int factor) {
+    private int findPosition(K key, int factor) {
         if (key == null) {
             return 0;
         }
@@ -75,7 +75,7 @@ public class HashMap<K, V> implements Iterable {
     }
 
     public V get(K key) {
-        int index = myHash(key, this.array.length);
+        int index = findPosition(key, this.array.length);
         if (this.array[index] != null && this.array[index].key.equals(key)) {
             return (V) this.array[index].value;
         }
@@ -84,7 +84,7 @@ public class HashMap<K, V> implements Iterable {
 
     public boolean delete(K key) {
         this.modCount--;
-        int index = myHash(key, this.array.length);
+        int index = findPosition(key, this.array.length);
         if (this.array[index] != null && this.array[index].key.equals(key)) {
             this.array[index] = null;
             this.size--;
@@ -101,6 +101,9 @@ public class HashMap<K, V> implements Iterable {
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException("Only for read");
+                }
                 while (itIndex < getCapacity()) {
                     if (array[itIndex] != null) {
                         return true;
@@ -113,13 +116,9 @@ public class HashMap<K, V> implements Iterable {
 
             @Override
             public V next() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException("Only for read");
-                }
-                if (itIndex == getCapacity()) {
+                if (!hasNext()) {
                     throw new NoSuchElementException("No more elements");
                 }
-                hasNext();
                 return (V) array[itIndex++].value;
             }
         };
