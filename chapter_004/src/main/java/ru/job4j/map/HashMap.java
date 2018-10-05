@@ -54,6 +54,7 @@ public class HashMap<K, V> implements Iterable {
                     newArray[index] = this.array[i];
                 } else {
                     restart(factor);
+                    break;
                 }
             }
         }
