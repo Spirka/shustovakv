@@ -155,8 +155,8 @@ public class HashMap<K, V> implements Iterable {
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
-            Items thing = (Items) o;
-            return Objects.equals(key, thing.key) && Objects.equals(value, thing.value);
+            Items<?, ?> items = (Items<?, ?>) o;
+            return Objects.equals(key, items.key) && Objects.equals(value, items.value);
         }
 
         @Override

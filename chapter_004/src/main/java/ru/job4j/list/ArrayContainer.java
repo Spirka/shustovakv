@@ -90,7 +90,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
-                if (itIndex == getSize()) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 } else if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
