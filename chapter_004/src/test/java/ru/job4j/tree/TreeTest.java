@@ -3,7 +3,6 @@ package ru.job4j.tree;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.hamcrest.Matchers.is;
@@ -44,29 +43,22 @@ public class TreeTest {
     }
     @Test
     public void whenIterateThenTrue() {
-        //tree.add(1, 3);
-        //tree.add(2, 4);
-        //tree.add(3, 5);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(3, 5);
         Iterator it = tree.iterator();
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
         assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(3));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(5));
+        assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(2));
-        //assertThat(it.hasNext(), is(true));
-        //assertThat(it.next(), is(3));
-        //assertThat(it.hasNext(), is(true));
-        //assertThat(it.next(), is(4));
-        //assertThat(it.hasNext(), is(true));
-        //assertThat(it.next(), is(5));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(4));
         assertThat(it.hasNext(), is(false));
 
-    }
-
-    @Test (expected = ConcurrentModificationException.class)
-    public void whenIterateAndModifiedThenException() {
-        Iterator it = tree.iterator();
-        tree.add(2, 3);
-        assertThat(it.hasNext(), is(false));
     }
 
     @Test

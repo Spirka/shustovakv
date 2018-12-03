@@ -110,42 +110,28 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     private class TreeIterator implements Iterator<E> {
 
-        Iterator<Node<E>> itCurrent;// итератор по детям
-
-        Node<E> nCurrent; // текущий ребенок
-
         Stack<Node<E>> stack = new Stack<>();
 
-        private boolean next;
-
-        public TreeIterator() {
-            this.nCurrent = root;
-            findNext();
+        private TreeIterator() {
+            stack.push(root);
         }
-
-        private void findNext() {
-            this.itCurrent = nCurrent.leaves().iterator();
-            this.next = itCurrent.hasNext();
-        }
-
 
         @Override
         public boolean hasNext() {
-            return (!stack.isEmpty() || nCurrent != null);
+            return (!stack.isEmpty());
         }
 
         @Override
         public E next() {
-            if (!next) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            while (nCurrent != null) {
-                stack.push(nCurrent);
-                nCurrent = itCurrent.next();
+            Node<E> pop = stack.pop();
+            List<Node<E>> leaves = pop.leaves();
+            if (!leaves.isEmpty()) {
+                stack.addAll(leaves);
             }
-            nCurrent = stack.pop();
-            Node<E> node = nCurrent;
-            return node.getValue();
+            return pop.getValue();
         }
     }
 }
