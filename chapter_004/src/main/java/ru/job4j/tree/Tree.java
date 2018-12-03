@@ -110,64 +110,42 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     private class TreeIterator implements Iterator<E> {
 
-        /**
-         * The index of the item to be returned by a subsequent call to the next method.
-         */
-        private int cursor = 0;
+        Iterator<Node<E>> itCurrent;// итератор по детям
 
-        /**
-         * Counter changes in the container
-         *
-         * @return
-         */
-        private int expectedModCount = modCount;
+        Node<E> nCurrent; // текущий ребенок
 
-        /**
-         * Container for all elements in the tree.
-         */
-        private List<Node<E>> it = new ArrayList<>();
+        Stack<Node<E>> stack = new Stack<>();
 
-        /**
-         * Number of items in the container
-         */
-        private int size;
+        private boolean next;
 
-        private TreeIterator() {
-            Queue<Node<E>> data = new LinkedList<>();
-            data.offer(root);
-            while (!data.isEmpty()) {
-                Node<E> element = data.poll();
-                it.add(element);
-                for (Node<E> child : element.leaves()) {
-                    data.offer(child);
-                }
-            }
-            this.size = it.size();
+        public TreeIterator() {
+            this.nCurrent = root;
+            findNext();
         }
+
+        private void findNext() {
+            this.itCurrent = nCurrent.leaves().iterator();
+            this.next = itCurrent.hasNext();
+        }
+
 
         @Override
         public boolean hasNext() {
-            checkModifications();
-            return cursor < size;
+            return (!stack.isEmpty() || nCurrent != null);
         }
 
         @Override
         public E next() {
-            checkModifications();
-            if (!hasNext()) {
-                throw new IndexOutOfBoundsException();
+            if (!next) {
+                throw new NoSuchElementException();
             }
-            return it.get(cursor++).getValue();
-        }
-
-        /**
-         * Checks the container for changes after Iterator initialization.
-         * @throws ConcurrentModificationException if modified.
-         */
-        private void checkModifications() throws ConcurrentModificationException {
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+            while (nCurrent != null) {
+                stack.push(nCurrent);
+                nCurrent = itCurrent.next();
             }
+            nCurrent = stack.pop();
+            Node<E> node = nCurrent;
+            return node.getValue();
         }
     }
 }
