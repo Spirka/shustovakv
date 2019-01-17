@@ -23,17 +23,13 @@ public class CheckWord {
      * @return map
      */
     public Map<Character, Integer> count(String word) {
-    Map<Character, Integer> map = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
 
-    for(int i = 0; i < word.length(); i++) {
-        char c = word.charAt(i);
-        if (map.containsKey(c)) {
-            int count = map.get(c);
-            map.put(c, ++count);
-        } else {
-            map.put(c, 1);
+        for(int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            map.computeIfPresent(c, (key, value) -> ++value);
+            map.putIfAbsent(c, 1);
         }
-    }
-    return map;
+        return map;
     }
 }
