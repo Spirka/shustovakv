@@ -34,7 +34,7 @@ public class SearchTest {
         fileTxt2.createNewFile();
         List<String> ext = Arrays.asList("txt");
         List<File> list = search.files(parent.getPath(), ext);
-        List<File> expect = Arrays.asList(fileTxt, fileTxt1, fileTxt2);
+        List<File> expect = Arrays.asList(fileTxt2, fileTxt, fileTxt1);
         assertThat(list.toString(), is(expect.toString()));
     }
 }

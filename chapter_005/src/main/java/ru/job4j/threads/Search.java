@@ -2,10 +2,7 @@ package ru.job4j.threads;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Class Search.
@@ -13,29 +10,29 @@ import java.util.Stack;
  * @since 25.01.2019
  */
 public class Search {
+
     private List<File> files = new ArrayList<>();
-    private Stack<String> folders = new Stack<>();
+    private Stack<File> folders = new Stack<>();
 
     List<File> files(String parent, List<String> ext) {
 
         OnlyExt onlyExt = new OnlyExt(ext);
-        this.folders.push(parent);
+        this.folders.push(new File(parent));
         while (!folders.isEmpty()) {
-            String path = folders.pop();
-            File current = new File(path);
+            File current = folders.pop();
             if (current.isDirectory()) {
-                folders.push(Objects.requireNonNull(current.listFiles()).toString());
+                this.folders.addAll(Arrays.asList(Objects.requireNonNull(current.listFiles())));
                 continue;
             }
             if (current.isFile()) {
                 if (onlyExt.accept(current, current.getName())) {
-                    files.add(current);
+                    this.files.add(current);
                 }
             }
+
         }
         return files;
     }
-
     public class OnlyExt implements FilenameFilter {
 
         public List<String> ext;
