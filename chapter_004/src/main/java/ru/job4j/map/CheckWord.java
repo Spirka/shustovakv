@@ -25,7 +25,7 @@ public class CheckWord {
     public Map<Character, Integer> count(String word) {
         Map<Character, Integer> map = new HashMap<>();
 
-        for(int i = 0; i < word.length(); i++) {
+        for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
             map.computeIfPresent(c, (key, value) -> ++value);
             map.putIfAbsent(c, 1);
