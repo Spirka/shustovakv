@@ -33,11 +33,11 @@ public class Search {
         }
         return files;
     }
-    public class OnlyExt implements FilenameFilter {
+    private class OnlyExt implements FilenameFilter {
 
-        public List<String> ext;
+        private List<String> ext;
 
-        public OnlyExt(List<String> ext) {
+        private OnlyExt(List<String> ext) {
             this.ext = ext;
         }
 

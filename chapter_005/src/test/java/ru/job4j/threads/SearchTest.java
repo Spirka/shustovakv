@@ -1,5 +1,6 @@
 package ru.job4j.threads;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,8 +17,9 @@ import static org.hamcrest.core.Is.is;
  * @since 25.01.2019
  */
 public class SearchTest {
+    @Ignore
     @Test
-    public void whenSearchTxtThenReturnTwoTxt() throws IOException {
+    public void whenSearchTxtFiles() throws IOException {
         Search search = new Search();
         String tmpdir = System.getProperty("java.io.tmpdir");
         File parent = new File(tmpdir + "parent");
