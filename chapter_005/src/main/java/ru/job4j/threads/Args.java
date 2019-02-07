@@ -1,5 +1,6 @@
 package ru.job4j.threads;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Args {
 
     private String directory;
     private String output;
-    private List<String> ext;
+    private List<String> ext = new ArrayList<>();
 
     /**
      * Constructor.
