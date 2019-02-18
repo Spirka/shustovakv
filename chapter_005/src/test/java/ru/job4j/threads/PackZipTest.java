@@ -42,6 +42,6 @@ public class PackZipTest {
         Args argument = new Args(args);
         PackZip packZip = new PackZip();
         packZip.zip(argument);
-        assertTrue(new File(argument.directory() + "\\" + argument.output()).exists());
+        assertTrue(new File(argument.directory() + "\\" + argument.output()).getName().contains(".zip"));
     }
 }
