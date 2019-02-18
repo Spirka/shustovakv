@@ -17,8 +17,8 @@ import java.util.zip.ZipOutputStream;
 public class PackZip {
 
     public void zip(Args args) {
-        String zip_file = args.output();
-        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(args.directory() + "//" + zip_file))) {
+        String zipFile = args.output();
+        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(args.directory() + "//" + zipFile))) {
             File fileSource = new File(args.directory());
             List<String> exc = args.exclude();
             this.addDirectory(zout, fileSource, exc);
@@ -50,7 +50,7 @@ public class PackZip {
 
                     byte[] buffer = new byte[2048];
                     int length;
-                    while((length = fis.read(buffer)) > 0) {
+                    while ((length = fis.read(buffer)) > 0) {
                         zout.write(buffer, 0, length);
                     }
                     zout.closeEntry();
