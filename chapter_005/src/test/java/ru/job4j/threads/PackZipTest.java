@@ -1,6 +1,8 @@
 package ru.job4j.threads;
 
 import org.junit.Test;
+import ru.job4j.zip.Args;
+import ru.job4j.zip.PackZip;
 
 import java.io.File;
 import java.io.IOException;

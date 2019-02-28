@@ -1,4 +1,4 @@
-package ru.job4j.threads;
+package ru.job4j.zip;
 
 import java.util.ArrayList;
 import java.util.List;
