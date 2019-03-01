@@ -17,12 +17,12 @@ public class ConsoleChat {
     private static final String EXIT = "exit";
     private static final List<String> COMMAND_LIST = Arrays.asList(STOP, CONTINUE, EXIT);
     private List<String> answers;
-    private String pathLog;
+    private File logFile;
 
-    public ConsoleChat(String pathLog) {
-        String phrasesDirectory = getClass().getClassLoader().getResource("phrases.txt").getPath();
+    private ConsoleChat() {
+        InputStream phrasesDirectory = getClass().getResourceAsStream("phrases.txt");
         this.answers = phrasesList(phrasesDirectory);
-        this.pathLog = pathLog;
+        this.logFile = createLogFile();
     }
 
     /**
@@ -41,7 +41,7 @@ public class ConsoleChat {
      * Communication
      *
      */
-    public void chat(List<String> answers, File logFile) {
+    public void chat(List<String> answers) {
         System.out.println("Command list: " + COMMAND_LIST);
         String userMessage;
         boolean stop = false;
@@ -70,14 +70,12 @@ public class ConsoleChat {
 
     /**
      * Adds lines of a text file to the collection.
-     * @param phrasesDirectory Path to the answer file.
+     * @param is Path to the answer file.
      * @return Collection of answers.
      */
-    private List<String> phrasesList(String phrasesDirectory) {
+    private List<String> phrasesList(InputStream is) {
         this.answers = new ArrayList<>();
-        try (FileInputStream fins = new FileInputStream(phrasesDirectory)) {
-            InputStreamReader inputStreamReader = new InputStreamReader(fins);
-            BufferedReader br = new BufferedReader(inputStreamReader);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = br.readLine()) != null) {
                 answers.add(line);
@@ -102,17 +100,28 @@ public class ConsoleChat {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    /**
+     * The file is created in the temporary folder.
+     * @return Log-file
+     * @throws IOException
+     */
+    private File createLogFile()  {
         String path = System.getProperty("java.io.tmpdir");
         String parent = path + "/consoleChatLog";
         new File(parent).mkdirs();
         new File(parent + "/chatLog").mkdirs();
         File file = new File(parent + "/chatLog/log.txt");
-        new File(parent + "//chatLog/log.txt").createNewFile();
-        String stringLog = file.getPath();
-        ConsoleChat consoleChatLog = new ConsoleChat(stringLog);
-        List<String> answers = consoleChatLog.answers;
-        File logFile = new File(consoleChatLog.pathLog);
-        consoleChatLog.chat(answers, logFile);
+        try {
+            new File(parent + "//chatLog/log.txt").createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    public static void main(String[] args) {
+        ConsoleChat consoleChat = new ConsoleChat();
+        List<String> answers = consoleChat.answers;
+        consoleChat.chat(answers);
     }
 }
