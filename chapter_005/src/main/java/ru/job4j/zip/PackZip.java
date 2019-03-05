@@ -22,9 +22,6 @@ public class PackZip {
             File fileSource = new File(args.directory());
             List<String> exc = args.exclude();
             this.addDirectory(zout, fileSource, exc);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,8 +34,7 @@ public class PackZip {
         while (!queue.isEmpty()) {
             File[] files = Objects.requireNonNull(queue.poll()).listFiles();
             assert files != null;
-            for (int i = 0; i < files.length; i++) {
-                final File file = files[i];
+            for (final File file : files) {
                 String name = base.relativize(file.toURI()).getPath();
                 if (file.isDirectory()) {
                     name = name.endsWith("/") ? name : name + "/";
