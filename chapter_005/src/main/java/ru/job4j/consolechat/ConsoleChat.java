@@ -40,7 +40,6 @@ public class ConsoleChat {
      *
      */
     private void chat() {
-        System.out.println("Список команд: " + COMMAND_LIST);
         LOG.info("Список команд: " + COMMAND_LIST);
         String userMessage;
         boolean stop = false;
@@ -59,7 +58,6 @@ public class ConsoleChat {
                     } else if (!stop) {
                         String answer = responseComp(this.answers);
                         LOG.info(answer);
-                        System.out.println(answer);
                     }
                 }
             } while (!userMessage.equals(EXIT));
