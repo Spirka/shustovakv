@@ -1,9 +1,6 @@
 package ru.job4j.bot;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,17 +12,17 @@ import java.net.Socket;
  */
 public class Server {
     private final Socket socket;
-    private static final int PORT = 1111;
+    private static final int PORT = 4004;
 
-    public Server(Socket socket) {
+    Server(Socket socket) {
         this.socket = socket;
     }
 
-    public void init() {
+    void init() {
         try {
             PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            String ask = null;
+            String ask;
             do {
                 System.out.println("wait command...");
                 ask = in.readLine();
@@ -45,7 +42,7 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         try (final Socket socket = new ServerSocket(PORT).accept()) {
-            new Server(socket);
+            new Server(socket).init();
         }
     }
 }
