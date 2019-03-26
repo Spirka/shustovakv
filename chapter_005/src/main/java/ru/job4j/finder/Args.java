@@ -15,7 +15,7 @@ public class Args {
     private String outputFilename;
 
     public Args(String[] args) {
-        if (args == null) {
+        if (args.length == 0) {
             System.out.println("Не найдено ключей!\n");
                     help();
         } else {
@@ -40,9 +40,9 @@ public class Args {
         }
     }
 
-    public void help() {
+    private void help() {
         System.out.println("Ключи:\n"
-                + "        -d - директория в которая начинать поиск.\n"
+                + "        -d - директория в которой начинать поиск.\n"
                 + "        -n - имя файл, маска, либо регулярное выражение.\n"
                 + "        -m - искать по маске, либо -f - полное совпадение имени. -r регулярное выражение.\n"
                 + "        -o - результат записать в файл."
