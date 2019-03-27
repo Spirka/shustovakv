@@ -64,11 +64,11 @@ public class FileFinderTest {
 /**
     @After
     public void tearDown() {
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test1", "test.txt").delete();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test2", "weather.jpg").delete();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\log.txt").delete();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test1").delete();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test2").delete();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test1", "test.txt").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test2", "weather.jpg").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/log.txt").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test1").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test2").delete();
+        new File(System.getProperty("java.io.tmpdir") + "TEST_DIR").delete();
     }*/
 }
