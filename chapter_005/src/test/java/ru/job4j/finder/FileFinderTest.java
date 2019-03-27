@@ -17,14 +17,12 @@ public class FileFinderTest {
     @Before
     public void setUp() throws Exception {
         String path = System.getProperty("java.io.tmpdir");
-        String testDir = path + "/TEST_DIR";
-        new File(testDir).mkdirs();
-        new File(testDir + "/test1").mkdirs();
-        new File(testDir + "/test2").mkdirs();
-        File file = new File(testDir + "/test1/test.txt");
-        File file1 = new File(testDir + "/test2/weather.jpg");
-        file.createNewFile();
-        file1.createNewFile();
+        String parent = path + "/TEST_DIR";
+        new File(parent).mkdirs();
+        new File(parent + "/test1").mkdirs();
+        new File(parent + "/test2").mkdirs();
+        new File(parent + "/test1/test.txt").createNewFile();
+        new File(parent + "/test2/weather.jpg").createNewFile();
     }
 
     public void testFinder(String[] args, String expected) throws IOException {
@@ -64,7 +62,7 @@ public class FileFinderTest {
         String expected = System.getProperty("java.io.tmpdir") + "TEST_DIR" + "\\test2\\weather.jpg";
         testFinder(args, expected);
     }
-
+/**
     @After
     public void tearDown() {
         new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test", "test.txt").delete();
@@ -73,5 +71,5 @@ public class FileFinderTest {
         new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test1").delete();
         new File(System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test2").delete();
         new File(System.getProperty("java.io.tmpdir") + "TEST_DIR").delete();
-    }
+    }*/
 }
