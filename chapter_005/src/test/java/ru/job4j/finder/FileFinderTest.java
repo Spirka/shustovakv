@@ -16,11 +16,13 @@ public class FileFinderTest {
 
     @Before
     public void setUp() throws Exception {
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR").mkdirs();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test1").mkdirs();
-        new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test2").mkdirs();
-        File file = new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test1\\test.txt");
-        File file1 = new File(System.getProperty("java.io.tmpdir") + "\\TEST_DIR" + "\\test2\\weather.jpg");
+        String path = System.getProperty("java.io.tmpdir");
+        String TEST_DIR = path + "/TEST_DIR";
+        new File(TEST_DIR).mkdirs();
+        new File(TEST_DIR + "/test1").mkdirs();
+        new File(TEST_DIR + "/test2").mkdirs();
+        File file = new File(TEST_DIR + "/test1/test.txt");
+        File file1 = new File(TEST_DIR + "/test2/weather.jpg");
         file.createNewFile();
         file1.createNewFile();
     }
@@ -29,7 +31,7 @@ public class FileFinderTest {
         FileFinder.main(args);
         String readLine;
         try (BufferedReader br = new BufferedReader(new FileReader(
-                System.getProperty("java.io.tmpdir") + "\\TEST_DIR\\log.txt"))) {
+                System.getProperty("java.io.tmpdir") + "/TEST_DIR/log.txt"))) {
             readLine = br.readLine();
         }
         assertThat(readLine, is(expected));
