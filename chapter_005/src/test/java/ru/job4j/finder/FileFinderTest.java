@@ -40,7 +40,7 @@ public class FileFinderTest {
         String[] args = {"-jar", "FileFinder.jar", "-d",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR", "-n", "test.txt", "-f", "-o",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR/log.txt"};
-        String expected = System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test1/test.txt";
+        String expected = System.getProperty("java.io.tmpdir") + "/TEST_DIR" + "/test1/test.txt";
         testFinder(args, expected);
     }
 
@@ -49,7 +49,7 @@ public class FileFinderTest {
         String[] args = {"-jar", "FileFinder.jar", "-d",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR", "-n", "*.jpg", "-m", "-o",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR" + "/log.txt"};
-        String expected = System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test2/weather.jpg";
+        String expected = System.getProperty("java.io.tmpdir") + "/TEST_DIR" + "/test2/weather.jpg";
         testFinder(args, expected);
     }
 
@@ -58,7 +58,7 @@ public class FileFinderTest {
         String[] args = {"-jar", "FileFinder.jar", "-d",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR", "-n", "(weather).*", "-r", "-o",
                 System.getProperty("java.io.tmpdir") + "/TEST_DIR" + "/log.txt"};
-        String expected = System.getProperty("java.io.tmpdir") + "TEST_DIR" + "/test2/weather.jpg";
+        String expected = System.getProperty("java.io.tmpdir") + "/TEST_DIR" + "/test2/weather.jpg";
         testFinder(args, expected);
     }
 /**
