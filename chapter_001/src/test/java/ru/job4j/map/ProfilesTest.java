@@ -16,12 +16,41 @@ public class ProfilesTest {
                 new Profile(new Address("Saint Petersburg", "Decabristov", 15, 1)),
                 new Profile(new Address("Moskow", "Lenina", 25, 15)),
                 new Profile(new Address("Tihvin", "Lesnaya", 10, 205)));
+        List<Address> expected = Arrays.asList(
+                new Address("Moskow", "Lenina", 25, 15),
+                new Address("Saint Petersburg", "Decabristov", 15, 1),
+                new Address("Tihvin", "Lesnaya", 10, 205));
+        testProfiles(profiles, expected);
+    }
+
+    @Test
+    public void whenAddressListOfContainsDuplicates() {
+        List<Profile> profiles = Arrays.asList(
+                new Profile(new Address("Saint Petersburg", "Decabristov", 15, 1)),
+                new Profile(new Address("Moskow", "Lenina", 25, 15)),
+                new Profile(new Address("Moskow", "Lenina", 25, 15)));
+        List<Address> expected = Arrays.asList(
+                new Address("Moskow", "Lenina", 25, 15),
+                new Address("Saint Petersburg", "Decabristov", 15, 1));
+        testProfiles(profiles, expected);
+    }
+
+    @Test
+    public void whenAddressListIsSortedByCity() {
+        List<Profile> profiles = Arrays.asList(
+                new Profile(new Address("Saint Petersburg", "Decabristov", 15, 1)),
+                new Profile(new Address("Arkhangelsk", "Lenina", 25, 15)),
+                new Profile(new Address("Novosibirsk", "Popova", 25, 15)));
+        List<Address> expected = Arrays.asList(
+                new Address("Arkhangelsk", "Lenina", 25, 15),
+                new Address("Novosibirsk", "Popova", 25, 15),
+                new Address("Saint Petersburg", "Decabristov", 15, 1));
+        testProfiles(profiles, expected);
+    }
+
+    public void testProfiles(List<Profile> profiles, List<Address> expected) {
         Profiles addressBook = new Profiles();
         List<Address> addressList = addressBook.collect(profiles);
-        List<Address> expected = Arrays.asList(
-                new Address("Saint Petersburg", "Decabristov", 15, 1),
-                new Address("Moskow", "Lenina", 25, 15),
-                new Address("Tihvin", "Lesnaya", 10, 205));
         assertThat(addressList, is(expected));
     }
 }
