@@ -11,13 +11,19 @@ import java.util.Objects;
 public class Student {
 
     private int score;
+    private String surname;
 
-    public Student(int scope) {
+    public Student(int scope, String surname) {
         this.score = scope;
+        this.surname = surname;
     }
 
     public int score() {
         return this.score;
+    }
+
+    public String surname() {
+        return this.surname;
     }
 
     @Override
@@ -29,12 +35,12 @@ public class Student {
             return false;
         }
         Student student = (Student) o;
-        return score == student.score;
+        return score == student.score && Objects.equals(surname, student.surname);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(score);
+        return Objects.hash(score, surname);
     }
 }
