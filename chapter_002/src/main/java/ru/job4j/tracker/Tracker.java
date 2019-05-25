@@ -1,17 +1,19 @@
 package ru.job4j.tracker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Class Tracker.
  * @author  shustovakv
  * @since 23.11.2017
  */
-public class Tracker {
+public class Tracker implements ITracker {
     /**
      * Поле массив объектов класса Item.
      */
-    private final ArrayList<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Поле генерации случайных чисел.
@@ -26,6 +28,17 @@ public class Tracker {
         this.items.add(item);
         return item;
     }
+
+    @Override
+    public void replace(String id, Item item) {
+        this.items.forEach(x -> {
+                    if (x.getId().equals(id)) {
+                        this.items.set(this.items.indexOf(x), item);
+                    }
+                }
+        );
+    }
+
     /**
      * Метод генерирующий уникальный ключ для заявки.
      * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
@@ -34,30 +47,17 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-    /**
-     * Метод обновляющий значение заявки. Должен заменить ячейку в массиве this.items
-     * Для этого необходимо найти ячейку в массиве по id (id у Item можно получить с помощью метода getId)
-     * Обязательно принимать один параметр Item, а не список полей.
-     * @param item новая заявка.
-     */
-    public void update(Item item) {
-        for (Item element : items) {
-            if (element.getId().equals(item.getId())) {
-                this.items.set(this.items.indexOf(element), item);
-                break;
-            }
-        }
-    }
+
     /**
      * Метод public void delete(Item) должен удалить ячейку в массиве this.items.
      * Для этого необходимо найти ячейку в массиве по id.
      * После этого присвоить ей null, либо сместить все значения справа от удаляемого элемента - на
      * одну ячейку влево с помощью System.arrayCopy().
-     * @param item заявка.
+     * @param id заявки.
      */
-    public void delete(Item item) {
+    public void delete(String id) {
         for (Item element : items) {
-            if (element.getId().equals(item.getId())) {
+            if (element.getId().equals(id)) {
                 this.items.remove(element);
                 break;
             }
@@ -67,8 +67,8 @@ public class Tracker {
      * Метод public Item[] findAll() реализует получение списка заявок.
      * @return копию массива this.items без null элементов.
      */
-    public ArrayList<Item> findAll() {
-        return new ArrayList<>(this.items);
+    public List<Item> findAll() {
+        return this.items;
     }
     /**
      * Метод получение списка по имени. проверяет в цикле все элементы массива this.items,

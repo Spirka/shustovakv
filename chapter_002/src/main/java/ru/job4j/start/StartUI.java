@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import ru.job4j.tracker.ConsoleInput;
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 
@@ -21,13 +22,13 @@ public class StartUI {
     /**
      * Хранилище заявок.
      */
-    private final Tracker tracker;
+    private final ITracker tracker;
     /**
      * Конструтор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, ITracker tracker) {
         this.input = new ValidateInput(input);
         this.tracker = tracker;
     }

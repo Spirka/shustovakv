@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class Item.
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * @since 23.11.2017
  */
 public class Item {
+
     public Item(String name, String desc, Long created) {
         this.name = name;
         this.desc = desc;
@@ -92,5 +94,23 @@ public class Item {
      */
     public void setComments(ArrayList<String> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return created == item.created &&
+                Objects.equals(id, item.id) &&
+                Objects.equals(name, item.name) &&
+                Objects.equals(desc, item.desc) &&
+                Objects.equals(comments, item.comments);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, desc, created, comments);
     }
 }

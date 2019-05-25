@@ -1,7 +1,7 @@
 package ru.job4j.start;
 
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Tracker;
 
 /**
  * Interface UserAction.
@@ -12,7 +12,7 @@ public interface UserAction {
 
     int key();
 
-    void execute(Input input, Tracker tracker);
+    void execute(Input input, ITracker tracker);
 
     String info();
 }
