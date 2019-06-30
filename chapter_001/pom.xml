@@ -3,7 +3,7 @@
 	<artifactId>chapter_001</artifactId>
 	<packaging>jar</packaging>
 	<version>2.0</version>
-	
+
 	<parent>
 		<groupId>ru.job4j</groupId>
 		<artifactId>shustovakv</artifactId>

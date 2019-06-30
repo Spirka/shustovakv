@@ -98,14 +98,15 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Item item = (Item) o;
-        return created == item.created &&
-                Objects.equals(id, item.id) &&
-                Objects.equals(name, item.name) &&
-                Objects.equals(desc, item.desc) &&
-                Objects.equals(comments, item.comments);
+        return created == item.created && Objects.equals(id, item.id) && Objects.equals(name, item.name)
+                && Objects.equals(desc, item.desc) && Objects.equals(comments, item.comments);
     }
 
     @Override

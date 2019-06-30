@@ -48,7 +48,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        String sql = "INSERT INTO items (name, description, created) VALUES (?, ?, ?)";
+        @SuppressWarnings("SqlResolve") String sql = "INSERT INTO items (name, description, created) VALUES (?, ?, ?)";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.setString(1, item.getName());
             pst.setString(2, item.getDesc());
@@ -62,7 +62,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public void replace(String id, Item item) {
-        String sql = "UPDATE items SET name = ?, description = ?, created = ? WHERE id = ?";
+        @SuppressWarnings("SqlResolve") String sql = "UPDATE items SET name = ?, description = ?, created = ? WHERE id = ?";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.setString(1, item.getName());
             pst.setString(2, item.getDesc());
@@ -76,7 +76,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public void delete(String id) {
-        String sql = "DELETE FROM items WHERE id = ?";
+        @SuppressWarnings("SqlResolve") String sql = "DELETE FROM items WHERE id = ?";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.setInt(1, Integer.valueOf(id));
             pst.executeUpdate();
@@ -88,7 +88,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public List<Item> findAll() {
         List<Item> items = new ArrayList<>();
-        String sql = "SELECT * FROM items";
+        @SuppressWarnings("SqlResolve") String sql = "SELECT * FROM items";
         try (Statement st = this.connection.createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -107,7 +107,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> items = new ArrayList<>();
-        String sql = "SELECT name, description, created FROM items WHERE name = ?";
+        @SuppressWarnings("SqlResolve") String sql = "SELECT name, description, created FROM items WHERE name = ?";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.setString(1, key);
             ResultSet rs = pst.executeQuery();
@@ -127,7 +127,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item findById(String id) {
         Item result = null;
-        String sql = "SELECT * FROM items WHERE id = ?";
+        @SuppressWarnings("SqlResolve") String sql = "SELECT * FROM items WHERE id = ?";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.setInt(1, Integer.valueOf(id));
             ResultSet rs = pst.executeQuery();
@@ -149,7 +149,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     public void dropTable() {
-        String sql = "DROP TABLE items";
+        @SuppressWarnings("SqlResolve") String sql = "DROP TABLE items";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
             pst.executeUpdate();
         }
