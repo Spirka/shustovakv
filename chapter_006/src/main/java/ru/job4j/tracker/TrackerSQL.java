@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -21,19 +22,14 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     private Connection connection;
 
-    public TrackerSQL() {
-        init();
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS items (id SERIAL PRIMARY KEY, name VARCHAR(50), description TEXT, created TIMESTAMP)");
-        } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
-        }
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
     }
 
     public boolean init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
-            config.load(in);
+            config.load(Objects.requireNonNull(in));
             Class.forName(config.getProperty("driver-class-name"));
             this.connection = DriverManager.getConnection(
                     config.getProperty("url"),
@@ -48,22 +44,30 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
+        Item result = null;
         @SuppressWarnings("SqlResolve") String sql = "INSERT INTO items (name, description, created) VALUES (?, ?, ?)";
-        try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
+        try (PreparedStatement pst = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, item.getName());
             pst.setString(2, item.getDesc());
             pst.setTimestamp(3, new Timestamp(item.getCreated()));
             pst.executeUpdate();
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    item.setId(generatedKeys.getString(1));
+                }
+            }
+            result = item;
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
         }
-        return item;
+        return result;
     }
 
     @Override
     public void replace(String id, Item item) {
         @SuppressWarnings("SqlResolve") String sql = "UPDATE items SET name = ?, description = ?, created = ? WHERE id = ?";
         try (PreparedStatement pst = this.connection.prepareStatement(sql)) {
+            item.setId(id);
             pst.setString(1, item.getName());
             pst.setString(2, item.getDesc());
             pst.setTimestamp(3, new Timestamp(item.getCreated()));
@@ -96,6 +100,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                         rs.getString("name"),
                         rs.getString("description"),
                         rs.getTimestamp("created").getTime());
+                item.setId(rs.getString("id"));
                 items.add(item);
             }
         } catch (SQLException e) {
@@ -136,6 +141,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                         rs.getString("name"),
                         rs.getString("description"),
                         rs.getTimestamp("created").getTime());
+                result.setId(String.valueOf(rs.getInt("id")));
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -146,6 +152,15 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public void close() throws SQLException {
         this.connection.close();
+    }
+
+    public void createTables() {
+        String sql = "CREATE TABLE IF NOT EXISTS Items (id serial primary key , name varchar(50), description text, created timestamp)";
+        try (Statement st = connection.createStatement()) {
+            st.executeUpdate(sql);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     public void dropTable() {
