@@ -21,7 +21,7 @@ public class ConvertXSQT {
             Transformer transformer = factory.newTransformer(new StreamSource(scheme));
             transformer.transform(new StreamSource(source), new StreamResult(dest));
         } catch (TransformerException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + e);
         }
     }
 }
