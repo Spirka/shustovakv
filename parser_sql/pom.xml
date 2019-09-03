@@ -8,14 +8,8 @@
         <version>2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>chapter_006</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>ru.job4j</groupId>
-            <artifactId>chapter_002</artifactId>
-            <version>2.0</version>
-        </dependency>
-    </dependencies>
+    <artifactId>parser_sql</artifactId>
+
     <build>
         <plugins>
             <plugin>
@@ -24,7 +18,7 @@
                 <version>3.7.0</version>
                 <configuration>
                     <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-                    <url>${db.url}/tracker</url>
+                    <url>${db.url}/vacancies</url>
                     <driver>${db.driver}</driver>
                     <username>${db.username}</username>
                     <password>${db.password}</password>
@@ -40,4 +34,12 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
