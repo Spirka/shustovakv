@@ -4,7 +4,7 @@ package ru.job4j.loop;
  * @author shustovakv
  * @since 25.10.2017
  */
- public class Counter {
+class Counter {
 	 /**
 	  * Поле result.
 	  */
@@ -15,8 +15,8 @@ package ru.job4j.loop;
 	  * @param finish конечное число.
 	  * @return сумма всех четных чисел от start до finish.
 	  */
-	 public int add(int start, int finish) {
-		 for (int i = start; i <= finish; i++) { //внешний цикл.
+     int add(int start, int finish) {
+		 for (int i = start; i <= finish; i++) {
 			if (i % 2 == 0) {
 				this.result += i;
 			}
