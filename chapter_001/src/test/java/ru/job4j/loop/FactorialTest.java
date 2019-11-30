@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 	 * Test on factorial 5.
 	 */
 	 @Test
-	 public void whenCalculateFactorialForFiveThenOneHundreedTwenty() {
+	 public void whenCalculateFactorialForFiveThenOneHundredTwenty() {
 		 Factorial factorial = new Factorial();
 		 int result = factorial.calc(5);
 		 assertThat(result, is(120));
