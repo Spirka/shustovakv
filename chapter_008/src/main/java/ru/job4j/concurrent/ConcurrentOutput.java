@@ -1,5 +1,10 @@
 package ru.job4j.concurrent;
 
+/**
+ * Class ConcurrentOutput
+ * @author Kseniya Dergunova
+ * @since 05.04.2020
+ */
 public class ConcurrentOutput {
     public static void main(String[] args) {
         Thread another = new Thread(
