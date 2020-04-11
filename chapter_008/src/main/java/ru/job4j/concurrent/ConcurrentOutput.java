@@ -15,8 +15,6 @@ public class ConcurrentOutput {
         );
         another.start();
         second.start();
-//        another.run();
-//        second.run();
         System.out.println(Thread.currentThread().getName());
     }
 }
