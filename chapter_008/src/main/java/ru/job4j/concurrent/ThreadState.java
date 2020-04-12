@@ -9,16 +9,18 @@ package ru.job4j.concurrent;
 public class ThreadState {
     public static void main(String[] args) {
         Thread first = new Thread(
-                () -> {}
+                () -> {
+                }
         );
         Thread second = new Thread(
-                () -> {}
+                () -> {
+                }
         );
         System.out.println(String.format("Нить 1: %s, %s", first.getState().toString(), first.getName()));
         System.out.println(String.format("Нить 2: %s, %s", second.getState().toString(), second.getName()));
         first.start();
         second.start();
-        while (first.getState() != Thread.State.TERMINATED && second.getState() != Thread.State.TERMINATED) {
+        while (first.getState() == Thread.State.RUNNABLE || second.getState() == Thread.State.RUNNABLE) {
             System.out.println(first.getState());
             System.out.println(second.getState());
         }
