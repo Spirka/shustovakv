@@ -1,5 +1,7 @@
 package ru.job4j.srp;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -103,5 +105,58 @@ public class ReportEngineTest {
                 .append(" gross;")
                 .append(LN);
         assertThat(engine.generate(employee -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenReportXMLGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Petr", now, now, 300);
+        store.add(worker);
+        store.add(worker2);
+        IReport engine = new ReportXML(store);
+        StringBuilder expect = new StringBuilder()
+                .append("<?xml version=\"1.0\"?>")
+                .append(LN)
+                .append("<Employees>")
+                .append(LN)
+                .append("<Name>").append(worker.getName()).append("</Name>")
+                .append(LN)
+                .append("<Hired>").append(worker.getHired()).append("</Hired>")
+                .append(LN)
+                .append("<Fired>").append(worker.getFired()).append("</Fired>")
+                .append(LN)
+                .append("<Salary>").append(worker.getSalary()).append("</Salary>")
+                .append(LN)
+                .append("<Name>").append(worker2.getName()).append("</Name>")
+                .append(LN)
+                .append("<Hired>").append(worker2.getHired()).append("</Hired>")
+                .append(LN)
+                .append("<Fired>").append(worker2.getFired()).append("</Fired>")
+                .append(LN)
+                .append("<Salary>").append(worker2.getSalary()).append("</Salary>")
+                .append(LN)
+                .append("</Employees>");
+        assertThat(engine.generate(employee -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenReportJSONGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        IReport engine = new ReportJSON(store);
+        JSONObject expect = new JSONObject();
+        JSONArray employeeArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", worker.getName());
+        jsonObject.put("hired", worker.getHired());
+        jsonObject.put("fired", worker.getFired());
+        jsonObject.put("salary", worker.getSalary());
+        employeeArray.add(jsonObject);
+        expect.put("employees", employeeArray);
+        assertThat(engine.generate(employee -> true), is(expect.toJSONString()));
     }
 }
