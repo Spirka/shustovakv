@@ -26,4 +26,23 @@ public class MaxMinTest {
         Integer result = maxMin.min(list, Integer::compareTo);
         assertThat(result, is(-1));
     }
+
+    /**
+     * Если кратно 3 - мама, 5- папа, 3,5 - мама папа
+     */
+    @Test
+    public void main() {
+        for (int i = 1; i <= 100; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                System.out.println("мама папа");
+            } else if (i % 3 == 0) {
+                System.out.println("мама");
+            } else if (i % 5 == 0) {
+                System.out.println("папа");
+            } else {
+                System.out.println(i);
+            }
+
+        }
+    }
 }
