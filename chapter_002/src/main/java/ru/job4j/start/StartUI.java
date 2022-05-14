@@ -18,13 +18,13 @@ public class StartUI {
     /**
      * Диапазон значений меню.
      */
-    private int[] ranges = new int[] {0, 1, 2, 3, 4, 5, 6};
+    private final int[] ranges = new int[] {0, 1, 2, 3, 4, 5, 6};
     /**
      * Хранилище заявок.
      */
     private final ITracker tracker;
     /**
-     * Конструтор инициализирующий поля.
+     * Конструктор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
      */

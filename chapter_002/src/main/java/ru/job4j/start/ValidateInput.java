@@ -4,7 +4,7 @@ import ru.job4j.tracker.Input;
 
 public class ValidateInput implements Input {
 
-    private Input input;
+    private final Input input;
 
     ValidateInput(Input input) {
         this.input = input;
@@ -33,7 +33,7 @@ public class ValidateInput implements Input {
         return value;
     }
     private int superAsk(String question, int[] range) {
-        int key = Integer.valueOf(this.ask(question));
+        int key = Integer.parseInt(this.ask(question));
         boolean exist = false;
         for (int value : range) {
             if (value == key) {
